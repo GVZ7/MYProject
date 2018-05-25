@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="500dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Feedback"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:text="How do you feel about the support you received?"
+        android:textSize="15dp"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <RadioButton
+                android:id="@+id/rbcheck1"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:background="#7a9ecb"
+                android:checked="true"
+                android:gravity="center"
+                android:drawableRight="@drawable/ic_emotion"
+                android:text="It was great !"
+                android:textColor="@drawable/checked_radio_button"
+                android:textSize="20dp" />
+
+            <RadioButton
+                android:id="@+id/rbcheck2"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#7a9ecb"
+                android:drawableRight="@drawable/ic_emotion"
+                android:text="It did the job."
+                android:gravity="center"
+                android:textColor="@drawable/checked_radio_button"
+                android:textSize="20dp" />
+
+            <RadioButton
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#7a9ecb"
+                android:drawableRight="@drawable/ic_emotion"
+                android:text="I am disappoined."
+                android:gravity="center"
+                android:textColor="@drawable/checked_radio_button"
+                android:textSize="20dp" />
+        </RadioGroup>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Do you have any additional feedback for us?"
+            android:textSize="15dp" />
+
+        <EditText
+            android:id="@+id/txtfeedback_input"
+            android:layout_width="320dp"
+            android:layout_height="100dp"
+            android:paddingBottom="70dp"
+            android:background="#e0edf4"
+            android:hint="Tell us what is on your mind ?"
+            android:layout_marginTop="8dp"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/btnsend_feedback"
+            android:layout_width="200dp"
+            android:layout_marginTop="15dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_button"
+            android:text="Send Feedback"
+            android:textColor="#fff" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_im"
+        android:layout_width="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/fb"
+        android:layout_height="100dp" />
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="match_parent"
+        android:text="IMajor's My Future"
+        android:layout_below="@id/img_im"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="match_parent"
+        android:text="IMajor V1.0"
+        android:layout_below="@id/txt1"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt3"
+        android:layout_width="wrap_content"
+        android:text="Build Date :"
+        android:layout_below="@id/txt2"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txt2"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/dot" />
+    <TextView
+        android:id="@+id/txt4"
+        android:layout_below="@+id/txt3"
+        android:textSize="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:text="Developer :"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="70dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/dot"
+        android:layout_below="@id/txt3"
+        android:layout_marginRight="80dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txt5"
+        android:layout_width="wrap_content"
+        android:text="Email :"
+        android:textSize="15dp"
+        android:layout_below="@id/txt4"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="70dp"
+        android:background="@drawable/dot"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txt4"
+        android:layout_marginRight="80dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginRight="13dp"
+        android:layout_marginLeft="13dp"
+        android:background="@drawable/line"
+        android:layout_below="@id/txt5"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txt6"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_margin="13dp"
+        android:text="This is our first application and another experience
+for us as a Programmer. If this app is in the wrong place, Please forgouser and we hope that all users support our app. Thank You."
+        android:layout_below="@id/txt5"
+        android:textSize="15dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@drawable/line"
+        android:layout_below="@id/txt6"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txt7"
+        android:layout_width="match_parent"
+        android:layout_below="@id/txt6"
+        android:layout_margin="13dp"
+        android:gravity="center"
+        android:text="Do you like this App? If so,please help us and rate this App in the Play Store. "
+        android:textSize="13dp"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btnRateNow"
+        android:layout_below="@id/txt7"
+        android:layout_width="250dp"
+        android:text="Rate Now"
+        android:textColor="#ce3b30"
+        android:background="@drawable/rounded_button"
+        android:layout_centerHorizontal="true"
+        android:layout_height="35dp" />
+    <TextView
+        android:id="@+id/txt8"
+        android:layout_width="match_parent"
+        android:layout_below="@id/btnRateNow"
+        android:text="Don't you like something or do you have an idea for improvement?"
+        android:textSize="13dp"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="250dp"
+        android:text="Feedback"
+        android:textSize="15dp"
+        android:layout_below="@id/txt8"
+        android:textColor="#ce3b30"
+        android:background="@drawable/rounded_button"
+        android:layout_centerHorizontal="true"
+        android:layout_height="35dp" />
+</RelativeLayout>

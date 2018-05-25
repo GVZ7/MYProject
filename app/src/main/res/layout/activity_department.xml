@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#000"
+        android:layout_height="150dp">
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="#000"
+            android:text="ដេប៉ាតឺម៉ង់គណិតវិទ្យា"
+            android:textSize="20dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="#000"
+            android:layout_marginTop="5dp"
+            android:text="ដេប៉ាតឺម៉ង់គីមី"
+            android:textSize="20dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="#000"
+            android:text="ដេប៉ាតឺម៉ង់រូបវិទ្យា"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="#000"
+            android:text="ដេប៉ាតឺម៉ង់ជីវវិទ្យា"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="ដេប៉ាតឺម៉ង់ពត័មានវិទ្យា"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:layout_marginTop="5dp"
+            android:text="ដេប៉ាតឺម៉ង់បរិស្ថាន"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
