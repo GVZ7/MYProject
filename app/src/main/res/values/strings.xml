@@ -2,4 +2,7 @@
     <string name="app_name">MYProject</string>
     <string name="rate_now">Rate Now</string>
     <string name="feedback">Feed Back</string>
+    <string name="call_us">Call US</string>
+    <string name="email_us">Email US</string>
+
 </resources>
