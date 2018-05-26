@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background_about">
+
+    
+    <!--logo-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/darker_gray"></LinearLayout>
+    
+    <!--description-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+
+            android:text="This is our first application and another experince for us as a Programmer.If this app is in wrong place ,please forget user and we hope all use support our app.Thank you."/>
+
+    </LinearLayout>
+
+    <!--feedback n ratenow-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@android:color/white"
+            android:text="Do you like this app? If so,please help us and rate this app in Play store."/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_app"
+            android:text="@string/rate_now"
+            android:textColor="@android:color/holo_red_dark"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="@android:color/white"
+            android:text="Don't you like somethong or do you have any ideas for improvement ?"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_app"
+            android:text="@string/feedback"
+            android:textColor="@android:color/holo_red_dark"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
