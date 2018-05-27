@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@android:color/primary_text_dark_nodisable">
 
 
         <ImageButton
@@ -22,7 +23,9 @@
             android:layout_height="45dp"
             android:text="Setting"
             android:textSize="20dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="70dp"
+            android:gravity="center"/>
 
 
     </LinearLayout>
@@ -31,16 +34,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@android:color/background_light">
+
+        <!--combo language-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:hint="Language" /><!--need combobox-->
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="13dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="13dp"
+                android:src="@drawable/ic_more_language"/>
+        </RelativeLayout>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:hint="Language"/><!--need combobox-->
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:hint="Theme"/>
+            android:hint="Theme" />
 
 
         <!--image radio button-->
@@ -48,7 +68,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
+           <RadioButton
+               android:id="@+id/rd1"
+               android:layout_width="120dp"
+               android:layout_height="230dp"
+               android:layout_marginHorizontal="35dp"/>
+            <RadioButton
+                android:layout_width="120dp"
+                android:layout_height="230dp"
+                android:layout_marginHorizontal="35dp"
+                android:layout_toRightOf="@+id/rd1"/>
 
         </RelativeLayout>
 
