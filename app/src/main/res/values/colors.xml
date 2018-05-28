@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="color_background_about">#28282b</color>
     <color name="DarkBlue_border">#00008B</color>
+    <color name="light_gray">#778899</color>
 </resources>

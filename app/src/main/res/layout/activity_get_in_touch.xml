@@ -43,37 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:hint="@string/email_us"/>
-        
-        
+
+
         <!--imagebutton-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/fb"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="70dp"
-                android:layout_marginStart="89dp"
-                android:src="@drawable/facebook"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="89dp" />
-
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/fb"
-                android:layout_marginEnd="102dp"
-                android:src="@drawable/insta"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="102dp" />
-
-            
-        </RelativeLayout>
 
 
     </LinearLayout>
