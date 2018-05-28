@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="ដេប៉ាតឺម៉ង់ពត៍មានវិទ្យា"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="11dp"
+            android:text="ចំណេះដឹងមូលដ្ឋានដែលអ្នកត្រូវចេះសម្រាប់មុខជំនាញនេះគឺ
+គណិតវិទ្យា និង រូបវិទ្យា ។ ការសិក្សាដើម្បីទទួលបានសញ្ញាប័ត្រនេះមានរយ:ពេល៤ឆ្នាំយ៉ាងតិច ។ ក្រោយបញ្ចប់ការសិក្សា
+​និស្សិតនឹងទទួលបាននូវ :
+                     ចំណេះដឹង និង បំណិន មានដូចជា :
+- សរសេរ និង បង្កើតកម្មវិធីកំុព្យូទ័រតាមបែប Window-based និង Web-based
+- តបណ្តាញកំុព្យូទ័រ និង តម្លើងServerHardware and Software និង​ គ្រប់គ្រងDatabase
+- វិភាគ និង រៀបចំធ្វើតារាង ធ្វើរបាយការណ៏លើទន្នន័យដោយប្រព័ន្ធគ្រប់គ្រងDatabase
+- តម្លើង និង សរសេរកម្មវិធីដើម្បី៌ឲ្យឧបករណ៏អេឡិចត្រូនិច និង
+រ៉ូបូតប្រតិបត្តិការទៅតាមមុខងារជាក់លាក់
+-​​​​ រៀបចំបង្កើត និង គ្រប់គ្រងគម្រោងលើផ្នែក IT
+- វិភាគទិន្នន័យនៃការស្ទង់មតិលើចំណោទបញ្ហាណាមួយដើម្បី
+វាយតម្លៃលើការស្រាវជ្រាវ
+- បង្កើតកម្មវិធីសម្រាប់ទូរស័ព្ទវៃឆ្លាតទាំងលើប្រព័ន្ធប្រតិបត្តិការ Android and IOS
+- រចនារូបភាព ដាក់សម្លេង បង្កើតវីដេអូ លើកំុព្យូទ័រ
+                    ការងារ និង អង្គភាពដែលអាចបម្រើការងារ :
+- បម្រើការងារផ្នែកSoftware Development(Window,Web,and Mobile)
+- បម្រើការងារលើផ្នែករៀបចំតម្លើង និង គ្រប់គ្រងបណ្តាញកំុព្យូទ័រ
+        - អ្នកតបណ្តាញ Program Structure (ការចាប់ផ្គុំកម្មវិធី)
+        - Data Structuring and object-oriented program (OOP)
+        - Mobile Appliction Development
+        - Electronic Device (Robotics)
+        - IT Project Management
+        - តាមក្រុមហ៊ុន អង្គការ ធនាគារ និង ស្ថាប័នរដ្ឋ
+    សាកលវិទ្យាល័យ | RUPP, Zaman, Norton, ..."
+            android:textColor="#000"
+            android:layout_height="match_parent" />
+
+</LinearLayout>

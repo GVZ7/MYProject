@@ -45,12 +45,12 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/txt2"
+        android:layout_below="@id/txt2"
         android:layout_marginRight="80dp"
-        android:background="@drawable/dot" />
+       />
     <TextView
         android:id="@+id/txt4"
-        android:layout_below="@+id/txt3"
+        android:layout_below="@id/txt3"
         android:textSize="15dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -59,7 +59,6 @@
     <EditText
         android:layout_width="70dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/dot"
         android:layout_below="@id/txt3"
         android:layout_marginRight="80dp"
         android:layout_height="wrap_content" />
@@ -73,7 +72,6 @@
         android:layout_height="wrap_content" />
     <EditText
         android:layout_width="70dp"
-        android:background="@drawable/dot"
         android:layout_alignParentRight="true"
         android:layout_below="@id/txt4"
         android:layout_marginRight="80dp"

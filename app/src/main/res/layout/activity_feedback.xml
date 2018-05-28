@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:drawableRight="@drawable/ic_emotion"
                 android:text="It was great !"
-                android:textColor="@drawable/checked_radio_button"
+
                 android:textSize="20dp" />
 
             <RadioButton
@@ -47,7 +47,7 @@
                 android:drawableRight="@drawable/ic_emotion"
                 android:text="It did the job."
                 android:gravity="center"
-                android:textColor="@drawable/checked_radio_button"
+
                 android:textSize="20dp" />
 
             <RadioButton
@@ -58,7 +58,6 @@
                 android:drawableRight="@drawable/ic_emotion"
                 android:text="I am disappoined."
                 android:gravity="center"
-                android:textColor="@drawable/checked_radio_button"
                 android:textSize="20dp" />
         </RadioGroup>
 
