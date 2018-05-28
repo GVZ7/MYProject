@@ -34,27 +34,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/background_light">
+        android:background="@android:color/background_light"
+        android:orientation="vertical">
 
         <!--combo language-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:hint="Language" /><!--need combobox-->
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:hint="Language" /><!--need combobox-->
 
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="13dp"
-                android:layout_alignParentRight="true"
                 android:layout_marginRight="13dp"
-                android:src="@drawable/ic_more_language"/>
+                android:src="@drawable/ic_more_language" />
         </RelativeLayout>
 
         <EditText
@@ -72,18 +73,25 @@
                 android:id="@+id/rd1"
                 android:layout_width="149dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="23dp"
                 android:drawableRight="@drawable/light_theme"
-                android:background="@drawable/border"
-                />
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="33dp" />
 
             <RadioButton
                 android:layout_width="149dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/rd1"
+                android:layout_marginEnd="29dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_toRightOf="@+id/rd1"
                 android:drawableRight="@drawable/dark_theme"
-                />
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="29dp" />
 
         </RelativeLayout>
 

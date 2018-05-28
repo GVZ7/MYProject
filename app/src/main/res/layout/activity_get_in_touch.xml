@@ -46,6 +46,33 @@
 
 
         <!--imagebutton-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/facebook"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="45dp"
+                android:layout_marginStart="72dp"
+                android:background="@drawable/facebook"
+                android:layout_marginLeft="72dp"
+                android:layout_alignParentLeft="true" />
+
+            <ImageButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/facebook"
+                android:layout_marginEnd="86dp"
+                android:background="@drawable/insta"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="86dp" />
+
+        </RelativeLayout>
 
 
     </LinearLayout>
