@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -65,36 +66,54 @@
 
 
         <!--image radio button-->
-        <RelativeLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@+id/rd1"
-                android:layout_width="149dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="33dp"
-                android:layout_marginTop="23dp"
-                android:drawableRight="@drawable/light_theme"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="33dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <RadioButton
-                android:layout_width="149dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/rd1"
-                android:layout_marginEnd="29dp"
-                android:layout_marginHorizontal="15dp"
-                android:drawableRight="@drawable/dark_theme"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="29dp" />
+                <ImageView
+                    android:id="@+id/white"
+                    android:layout_width="149dp"
+                    android:layout_height="250dp"
+                    android:layout_marginHorizontal="25dp"
+                    android:background="@drawable/light_theme" />
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/black"
+                    android:layout_width="149dp"
+                    android:layout_height="250dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@drawable/dark_theme" />
 
+
+                <RadioButton
+                    android:id="@+id/light_theme_choosen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/white"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/white"
+                    android:buttonTint="@color/colorPrimaryDark" />
+
+                <RadioButton
+                    android:id="@+id/dark_theme_choosen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/black"
+                    android:layout_alignParentTop="true"
+                    tools:ignore="RtlCompat,UnknownId"
+                    android:buttonTint="@color/Orange" />
+
+
+            </RelativeLayout>
+        </RadioGroup>
 
     </LinearLayout>
 
