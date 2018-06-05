@@ -78,7 +78,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="23dp"
-                android:drawableRight="@drawable/light_theme"
+                android:gravity="right|top"
+                android:drawableLeft="@drawable/light_theme"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="33dp" />
 
