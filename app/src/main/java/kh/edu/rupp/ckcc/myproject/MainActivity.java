@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
  DrawerLayout drawerLayout;
@@ -50,25 +51,33 @@ public class MainActivity extends AppCompatActivity {
        });
 
     }
-    // laoding username Email in drawer
-    private void loadProfile(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Profile").document("ndqLK4kQlgD2osE16iOF").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    process(task);
-                }
-                    else{
-                    Toast.makeText(getApplication(), "Load events error.", Toast.LENGTH_LONG).show();
-                    Log.d("IMajor", "Load UserName error: " + task.getException());
-                };
-            }
-        });
-    }
-    private void process(@NonNull Task<DocumentSnapshot> task){
+    // loading username Email in drawer
+   private void loaddata()
+   {
+       FirebaseFirestore db = FirebaseFirestore.getInstance();
+       //read data
+       db.collection("Profile").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+           @Override
+           //catch all data put into task
+           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+               //check task error
+               if (task.isSuccessful())
+               {
+                   QuerySnapshot document=task.getResult();
+                   document.getDocuments();
+                   document.toString();
 
-    }
+               }else
+               {
+                   Toast.makeText(getApplication(),"Error Loading Prfile",Toast.LENGTH_SHORT).show();
+                   Log.d("MY App","Error Loading"+task.getException().getMessage());
+               }
+
+           }
+       });
+
+   }
+
     private void onProfileClick() {
         drawerLayout.closeDrawers();
     }
