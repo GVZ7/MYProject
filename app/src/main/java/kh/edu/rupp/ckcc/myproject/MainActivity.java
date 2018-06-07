@@ -1,5 +1,8 @@
 package kh.edu.rupp.ckcc.myproject;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -126,5 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSettingClick() {
         drawerLayout.closeDrawers();
+        SettingFragment settingFragment = new SettingFragment();
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.lyt_main,settingFragment);
+        fragmentTransaction.commit();
     }
 }
