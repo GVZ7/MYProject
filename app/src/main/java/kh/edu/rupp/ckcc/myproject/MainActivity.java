@@ -1,5 +1,6 @@
 package kh.edu.rupp.ckcc.myproject;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     // loading username Email in drawer
    private void loaddata()
    {
+      
        FirebaseFirestore db = FirebaseFirestore.getInstance();
        //read data
        db.collection("Profile").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -64,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
                if (task.isSuccessful())
                {
                    QuerySnapshot document=task.getResult();
-                   document.getDocuments();
-                   document.toString();
+
 
                }else
                {
@@ -78,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
 
    }
 
+   //create class Profile
+//    public class Profile
+//   {
+//
+//        String username;
+//        String imgurl;
+//        String email;
+//    }
+
+   //action tab
     private void onProfileClick() {
         drawerLayout.closeDrawers();
     }
