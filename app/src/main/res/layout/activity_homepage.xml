@@ -17,7 +17,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             >
-            <android.support.v4.widget.CircleImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/img_profile"/>
