@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,16 +35,28 @@ import org.w3c.dom.Text;
 import javax.annotation.Nullable;
 
 public class MainActivity extends AppCompatActivity {
- DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private int[] tabIcons = {
+            R.drawable.ic_home,
+            R.drawable.ic_description,
+            R.drawable.ic_search,
+            R.drawable.ic_setting
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
-        setContentView(R.layout.activity_homepage);
-
+      //  setContentView(R.layout.activity_homepage);
+            setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.lyt_main);
          navigationView = findViewById(R.id.navigation_view);
+
+         tabLayout = findViewById(R.id.abbtab);
+         viewPager = findViewById(R.id.viewpager);
+         AddFragments();
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
            @Override
            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -70,6 +84,27 @@ public class MainActivity extends AppCompatActivity {
        });
         loaddata();
     }
+    private void AddFragments(){
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        //Adding Fragments
+        adapter.AddFragments(new HomepageFragment(),"Home");
+        adapter.AddFragments(new FaculitiesFragment(),"Description");
+        adapter.AddFragments(new SearchFragment(),"Search");
+    //    adapter.AddFragments(new SettingFragment(),"Setting");
+
+        //adapter setup
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        setIconTab();
+    }
+    //setup icon for tab
+    private void setIconTab(){
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+      // tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+    }
+
     // loading username Email in drawer
    private void loaddata() {
 
@@ -97,14 +132,6 @@ public class MainActivity extends AppCompatActivity {
            }
        });
    }
-   //create class Profile
-//    public class Profile
-//   {
-//
-//        String username;
-//        String imgurl;
-//        String email;
-//    }
 
    //action tab
     private void onProfileClick() {
@@ -129,10 +156,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void onSettingClick() {
         drawerLayout.closeDrawers();
-        SettingFragment settingFragment = new SettingFragment();
-        FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.lyt_main,settingFragment);
-        fragmentTransaction.commit();
+//        SettingFragment settingFragment = new SettingFragment();
+//        FragmentManager fragmentManager=getFragmentManager();
+//        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.lyt_main,settingFragment);
+//        fragmentTransaction.commit();
     }
 }
