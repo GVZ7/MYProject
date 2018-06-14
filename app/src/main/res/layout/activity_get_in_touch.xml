@@ -39,11 +39,11 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:hint="@string/call_us"/>
+            android:hint="Call us"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:hint="@string/email_us"/>
+            android:hint="Email Us"/>
 
 
         <!--imagebutton-->
