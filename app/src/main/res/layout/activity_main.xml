@@ -50,10 +50,12 @@ tools:context="kh.edu.rupp.ckcc.myproject.MainActivity">
 <android.support.design.widget.NavigationView
     android:id="@+id/navigation_view"
     app:menu="@menu/menu"
+    android:onClick="addnewImage"
     android:layout_gravity="start"
     app:headerLayout="@layout/navigation_header"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="OnClick">
 
 </android.support.design.widget.NavigationView>
 

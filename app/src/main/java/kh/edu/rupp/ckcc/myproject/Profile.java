@@ -1,6 +1,9 @@
 package kh.edu.rupp.ckcc.myproject;
 
-public class Profile {
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+
+public class Profile extends AppCompatActivity {
     private String Username;
     private String Email;
     private String ImgUrl;
@@ -34,9 +37,15 @@ public class Profile {
 
     public Profile(String username, String email, String imgUrl) {
         Username = username;
-
         Email = email;
         ImgUrl = imgUrl;
 
     }
+    public void onProfileClick(){
+        Intent intent = new Intent();
+        intent.setType("Image/*");
+        intent.setAction(intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
+    
 }
