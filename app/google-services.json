@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "328932592428",
+    "firebase_url": "https://imajor-9c670.firebaseio.com",
+    "project_id": "imajor-9c670",
+    "storage_bucket": "imajor-9c670.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328932592428:android:44bdeb911ae719c4",
+        "android_client_info": {
+          "package_name": "kh.edu.rupp.ckcc.myproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328932592428-cl6r3n87dncke2f3pd0oesco2srk8gu5.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "328932592428-cl6r3n87dncke2f3pd0oesco2srk8gu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtTtS7rzemNBpzADSVC06OIv7sDKRyjzw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
