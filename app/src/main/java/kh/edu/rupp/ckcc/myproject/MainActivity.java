@@ -133,33 +133,67 @@ public class MainActivity extends AppCompatActivity {
        });
    }
 
+
+
    //action tab
     private void onProfileClick() {
         drawerLayout.closeDrawers();
+
+            Intent intent = new Intent();
+            intent.setType("Image/*");
+            intent.setAction(intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent,1);
+
     }
 
     private void onGetInTouchClick() {
         drawerLayout.closeDrawers();
+        Intent intent =new Intent(this,getintouch_activity.class);
+        startActivity(intent);
+
+        // Finish current activity
+        finish();
     }
 
     private void onFeedbackClick() {
     drawerLayout.closeDrawers();
+        // Start MainActivity
+        Intent intent = new Intent(this, feeback_activity.class);
+        startActivity(intent);
+
+        // Finish current activity
+        finish();
     }
 
     private void onBookmarkClick() {
         drawerLayout.closeDrawers();
+        // Start MainActivity
+        Intent intent = new Intent(this, bookmark_activity.class);
+        startActivity(intent);
+
+        // Finish current activity
+        finish();
+
     }
 
     private void onAboutClick() {
     drawerLayout.closeDrawers();
+        // Start MainActivity
+        Intent intent = new Intent(this, about_activity.class);
+        startActivity(intent);
+
+        // Finish current activity
+        finish();
     }
 
     private void onSettingClick() {
         drawerLayout.closeDrawers();
-//        SettingFragment settingFragment = new SettingFragment();
-//        FragmentManager fragmentManager=getFragmentManager();
-//        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.lyt_main,settingFragment);
-//        fragmentTransaction.commit();
+
+        // Start MainActivity
+        Intent intent = new Intent(this, settingActivity.class);
+        startActivity(intent);
+
+        // Finish current activity
+        finish();
     }
 }
