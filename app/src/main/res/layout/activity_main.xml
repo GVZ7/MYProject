@@ -22,7 +22,8 @@ tools:context="kh.edu.rupp.ckcc.myproject.MainActivity">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/img_profile"/>
+            android:src="@drawable/img_profile"
+            android:onClick="click_to_profile"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

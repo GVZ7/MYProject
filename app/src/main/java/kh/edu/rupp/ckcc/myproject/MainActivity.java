@@ -195,4 +195,9 @@ public class MainActivity extends AppCompatActivity {
         // Finish current activity
         finish();
     }
+    //click pic
+    public void click_to_profile(View view) {
+        Intent intent=new Intent(this,Profile_activity.class);
+        startActivity(intent);
+    }
 }
