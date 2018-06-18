@@ -139,10 +139,9 @@ public class MainActivity extends AppCompatActivity {
     private void onProfileClick() {
         drawerLayout.closeDrawers();
 
-            Intent intent = new Intent();
-            intent.setType("Image/*");
-            intent.setAction(intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent,1);
+        Intent intent=new Intent(this,Profile_activity.class);
+        startActivity(intent);
+
 
     }
 
