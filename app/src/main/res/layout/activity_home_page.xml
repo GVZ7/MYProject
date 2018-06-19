@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="xxxxxxxx"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_home"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </android.support.v4.view.ViewPager>
+        <com.rd.PageIndicatorView
+            android:layout_gravity="center"
+            android:id="@+id/page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+           app:piv_selectedColor="#F3292E"
+            app:piv_unselectedColor="#1d07f3"
+            />
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="xxxxxxxxxx"
+        android:textSize="18dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcl_major"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
