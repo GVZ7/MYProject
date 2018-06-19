@@ -3,6 +3,8 @@ package kh.edu.rupp.ckcc.myproject;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -29,6 +31,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private String userId="Tommy";
+
     private int[] tabIcons = {
             R.drawable.ic_home,
             R.drawable.ic_description,
@@ -82,6 +88,25 @@ public class MainActivity extends AppCompatActivity {
            }
 
        });
+        // Load profile image from Firebase storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
+        profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+            @Override
+            public void onComplete(@NonNull Task<byte[]> task) {
+                if(task.isSuccessful()){
+                    byte[] bytes = task.getResult();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);//get pic from firebase
+                    //create img in view
+                    View headerview =navigationView.getHeaderView(0);
+                    ImageView img=headerview.findViewById(R.id.img_profile);
+                    img.setImageBitmap(bitmap);//put pic in img
+                } else {
+                    Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
+                    Log.d("ckcc", "Load profile image fail: " + task.getException());
+                }
+            }
+        });
         loaddata();
     }
     private void AddFragments(){
