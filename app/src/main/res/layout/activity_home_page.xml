@@ -25,7 +25,6 @@
             android:id="@+id/page_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
            app:piv_selectedColor="#F3292E"
             app:piv_unselectedColor="#1d07f3"
             />
