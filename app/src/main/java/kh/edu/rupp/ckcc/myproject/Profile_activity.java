@@ -39,7 +39,7 @@ public class Profile_activity extends AppCompatActivity
 
         // Load profile image from Firebase storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference profileRef = storage.getReference().child("Profile").child("Profile").child(userId + ".jpg");
+        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
         profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
