@@ -13,21 +13,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="xxxxxxxx"/>
+            android:textSize="20dp"
+            android:text="Most Viewed Faculty"/>
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager_home"
             android:layout_width="match_parent"
             android:layout_height="200dp">
         </android.support.v4.view.ViewPager>
+
         <com.rd.PageIndicatorView
-            android:layout_gravity="center"
             android:id="@+id/page_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           app:piv_selectedColor="#F3292E"
-            app:piv_unselectedColor="#1d07f3"
-            />
+            android:layout_gravity="center"
+            app:piv_selectedColor="#F3292E"
+            app:piv_unselectedColor="#1d07f3" />
 
 
     </LinearLayout>
@@ -35,8 +35,8 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="xxxxxxxxxx"
-        android:textSize="18dp"/>
+        android:text="Most View Major"
+        android:textSize="20dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcl_major"
         android:layout_width="match_parent"

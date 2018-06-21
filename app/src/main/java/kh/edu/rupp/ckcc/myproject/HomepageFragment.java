@@ -7,17 +7,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.rd.PageIndicatorView;
 import com.rd.animation.type.AnimationType;
 
 public class HomepageFragment extends android.support.v4.app.Fragment{
 
    private ViewPager viewPager;
+   private MajorAdapter majorAdapter= new MajorAdapter();
    private int [] imgSlide= {R.drawable.ic_profile,R.drawable.ic_description};
     @Nullable
     @Override
@@ -61,8 +69,37 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
         RecyclerView.LayoutManager layoutManager;
         layoutManager = new LinearLayoutManager(getActivity(),LinearLayout.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        MajorAdapter majorAdapter = new MajorAdapter();
+        majorAdapter = new MajorAdapter();
         recyclerView.setAdapter(majorAdapter);
+
+        //load firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Majors").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    MajorResult(task);
+                } else {
+                    Toast.makeText(getActivity(), "Load events error.", Toast.LENGTH_LONG).show();
+                    Log.d("ckcc", "Load events error: " + task.getException());
+                }
+            }
+        });
+    }
+
+
+    private void MajorResult(@NonNull Task<QuerySnapshot> task) {
+        major[] majors = new major[task.getResult().size()];
+        int index = 0;
+        for (QueryDocumentSnapshot document : task.getResult()) {
+            // Convert Firestore document to object
+            major event = document.toObject(major.class);
+            majors[index] = event;
+            index++;
+        }
+        majorAdapter.setMajors(majors);
     }
 
 }
+
+

@@ -8,6 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>{
+    private major[] majors;
+
+    public MajorAdapter() {
+        majors=new major[0];
+    }
+
     @NonNull
     @Override
     public MajorHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -15,6 +21,14 @@ public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>
         View view =inflater.inflate(R.layout.activity_home_holder,parent,false);
         MajorHolder majorHolder = new MajorHolder(view);
         return  majorHolder;
+    }
+
+    public MajorAdapter(major[] majors) {
+        this.majors = majors;
+    }
+
+    public void setMajors(major[] majors) {
+        this.majors = majors;
     }
 
     @Override

@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-   //action tab
+
     private void onProfileClick() {
         drawerLayout.closeDrawers();
 

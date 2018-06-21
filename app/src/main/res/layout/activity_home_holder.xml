@@ -12,7 +12,8 @@
             android:id="@+id/img_major"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/img_profile"></ImageView>
+            android:src="@drawable/img_profile">
+        </ImageView>
 
     </LinearLayout>
    <LinearLayout
@@ -21,11 +22,12 @@
        android:orientation="vertical"
        android:layout_weight="1">
        <TextView
+           android:id="@+id/text_underPic_imgMajor"
            android:layout_marginTop="15dp"
            android:textColor="#f4f4"
            android:textSize="18dp"
            android:layout_gravity="center"
-           android:text="zzzzzzzzzz"
+           android:text="Major Name"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            />
