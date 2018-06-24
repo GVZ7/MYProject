@@ -25,7 +25,10 @@ import com.rd.animation.type.AnimationType;
 public class HomepageFragment extends android.support.v4.app.Fragment{
 
    private ViewPager viewPager;
-   private MajorAdapter majorAdapter= new MajorAdapter();
+   private MajorAdapter majorAdapter;
+
+
+
    private int [] imgSlide= {R.drawable.ic_profile,R.drawable.ic_description};
     @Nullable
     @Override
@@ -69,37 +72,47 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
         RecyclerView.LayoutManager layoutManager;
         layoutManager = new LinearLayoutManager(getActivity(),LinearLayout.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(majorAdapter);
+
+
+        // Create an adapter
         majorAdapter = new MajorAdapter();
         recyclerView.setAdapter(majorAdapter);
 
-        //load firestore
+        // Load events from Firestore
+        loadmajorfromfirestore();
+
+
+    }
+
+    private void loadmajorfromfirestore()
+    {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Majors").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Majors1").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    MajorResult(task);
-                } else {
+                if (task.isSuccessful())
+                {
+                    processmajorResult(task);
+                }else {
                     Toast.makeText(getActivity(), "Load events error.", Toast.LENGTH_LONG).show();
-                    Log.d("ckcc", "Load events error: " + task.getException());
+                    Log.d("loadtorecycler", "Load events error: " + task.getException());
                 }
             }
         });
     }
 
 
-    private void MajorResult(@NonNull Task<QuerySnapshot> task) {
-        major[] majors = new major[task.getResult().size()];
+    private void processmajorResult(@NonNull Task<QuerySnapshot> task) {
+        majors[] majors  = new majors[task.getResult().size()];
         int index = 0;
         for (QueryDocumentSnapshot document : task.getResult()) {
-            // Convert Firestore document to object
-            major event = document.toObject(major.class);
-            majors[index] = event;
+            // Convert Firestore document to Event object
+            majors major = document.toObject(majors.class);
+            majors[index] = major;
             index++;
         }
         majorAdapter.setMajors(majors);
     }
 
 }
-
-
