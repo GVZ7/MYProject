@@ -26,10 +26,10 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
 
    private ViewPager viewPager;
    private MajorAdapter majorAdapter;
+    private SlideShowHomePage slideShowHomePage;
 
 
-
-   private int [] imgSlide= {R.drawable.ic_profile,R.drawable.ic_description};
+    private int [] imgSlide= {R.drawable.ic_profile,R.drawable.ic_description};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -43,8 +43,8 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
 
         //slide show
         viewPager = view.findViewById(R.id.view_pager_home);
-        SlideShowHomePage slideShowHomePage= new SlideShowHomePage();
-        slideShowHomePage.setImageid(imgSlide);
+        slideShowHomePage= new SlideShowHomePage();
+        loadSlidefromfirestore();
         viewPager.setAdapter(slideShowHomePage);
         final PageIndicatorView pageIndicatorView = view.findViewById(R.id.page_indicator);
         pageIndicatorView.setAnimationType(AnimationType.DROP);
@@ -115,4 +115,34 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
         majorAdapter.setMajors(majors);
     }
 
+
+    private void loadSlidefromfirestore()
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Facultyimg").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    processSlideResult(task);
+                }else {
+                    Toast.makeText(getActivity(), "Load events error.", Toast.LENGTH_LONG).show();
+                    Log.d("loadtorecycler", "Load events error: " + task.getException());
+                }
+            }
+        });
+    }
+
+
+    private void processSlideResult(@NonNull Task<QuerySnapshot> task) {
+        Slide[] slides  = new Slide[task.getResult().size()];
+        int index = 0;
+        for (QueryDocumentSnapshot document : task.getResult()) {
+            // Convert Firestore document to Event object
+            Slide slide = document.toObject(Slide.class);
+            slides[index] = slide;
+            index++;
+        }
+        slideShowHomePage.setImageid(slides);
+    }
 }

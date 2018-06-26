@@ -1,5 +1,6 @@
 package kh.edu.rupp.ckcc.myproject;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -7,11 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-public class SlideShowHomePage extends PagerAdapter {
-    private  int [] imageid;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-    public void setImageid(int[] imageid) {
+public class SlideShowHomePage extends PagerAdapter {
+    private  Slide [] imageid;
+
+    public SlideShowHomePage() {
+        this.imageid = new Slide[0];
+    }
+
+    public void setImageid(Slide[] imageid) {
         this.imageid = imageid;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -34,8 +42,9 @@ public class SlideShowHomePage extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
         View slide = inflater.inflate(R.layout.activity_home_slide,container,false);
-        ImageView itemSlide = slide.findViewById(R.id.item_slide);
-        itemSlide.setImageResource(imageid[position]);
+        SimpleDraweeView itemSlide = slide.findViewById(R.id.item_slide);
+        Slide slide1= imageid[position];
+        itemSlide.setImageURI(slide1.getImg_slide());
         container.addView(slide);
         return slide;
     }
