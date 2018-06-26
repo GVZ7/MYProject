@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>{
@@ -38,9 +39,12 @@ public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>
     @Override
     //bind data to view holder
     public void onBindViewHolder(@NonNull MajorHolder holder, int position) {
-
+        //display major name
          majors major = majors1[position];
+        holder.majorname.setText(major.getName());
 
+        // Display major image
+        holder.imgmajor.setImageURI(major.getImg_major());
 
     }
 
@@ -52,7 +56,7 @@ public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>
     }
     public class MajorHolder extends RecyclerView.ViewHolder{
         private TextView majorname;
-        private ImageView imgmajor;
+        private SimpleDraweeView imgmajor;
 
         public MajorHolder(View itemView) {
 

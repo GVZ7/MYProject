@@ -1,5 +1,7 @@
 package kh.edu.rupp.ckcc.myproject;
 
+import android.net.Uri;
+
 public class majors
 {
     private String name;
@@ -8,7 +10,9 @@ public class majors
 
 
     public majors() {
-
+//        this.name = name;
+//        this.description = description;
+//        this.img_major = img_major;
     }
 
 

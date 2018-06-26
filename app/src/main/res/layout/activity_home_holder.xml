@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="240dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         >
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/img_major"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/img_profile"></ImageView>
+            app:placeholderImage="@drawable/img_profile">
+
+        </com.facebook.drawee.view.SimpleDraweeView>
 
     </LinearLayout>
    <LinearLayout
