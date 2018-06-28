@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="206dp"
-        android:text="HELLO World" />
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <com.facebook.drawee.view.SimpleDraweeView
+          android:layout_width="match_parent"
+          android:layout_height="130dp"
+          android:id="@+id/img_major_detail"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:id="@+id/major_title"
+          android:layout_below="@+id/img_major_detail"/>
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@+id/major_title"
+          android:id="@+id/major_description"/>
+
+  </RelativeLayout>
 
 
-</RelativeLayout>
+</ScrollView>
