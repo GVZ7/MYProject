@@ -20,9 +20,10 @@ public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>
 
     public MajorAdapter(){majors1=new majors[0];}
 
+    //pel pull data mor
     public void setMajors(majors[] majors){
         this.majors1=majors;
-        notifyDataSetChanged();
+        notifyDataSetChanged();//oy refresh data
 
     }
 

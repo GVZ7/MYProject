@@ -20,7 +20,7 @@ public class majordetail_activity extends AppCompatActivity
 
         // Get selected event
         Intent intent = getIntent();
-        String eventJson = intent.getStringExtra("Major1");
+        String eventJson = intent.getStringExtra("Majors1");
         Gson gson = new Gson();
         majors majors = gson.fromJson(eventJson, majors.class);
 

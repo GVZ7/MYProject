@@ -65,7 +65,8 @@ public class Profile_activity extends AppCompatActivity
 
     //upload n store img on firebase
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)//pel activity a jab yok data pi activity b
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Load selected image
