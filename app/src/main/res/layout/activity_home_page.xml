@@ -11,32 +11,36 @@
         android:layout_weight="1">
 
         <TextView
+            android:textStyle="italic"
+            android:padding="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Most Faculty View"
+            android:text="Most Faculty Views"
             android:textSize="23dp"
             android:layout_marginHorizontal="35dp"/>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager_home"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
-        </android.support.v4.view.ViewPager>
+            android:layout_height="157dp"></android.support.v4.view.ViewPager>
         <com.rd.PageIndicatorView
             android:layout_gravity="center"
             android:id="@+id/page_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           app:piv_selectedColor="#F3292E"
-            app:piv_unselectedColor="#1d07f3"
+           app:piv_selectedColor="#448fec"
+            app:piv_unselectedColor="#6782a4"
             />
 
 <!-- horizonal recycler view-->
     </LinearLayout>
     <TextView
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Most Major View"
+        android:textStyle="italic"
         android:textSize="23dp"
         android:layout_marginHorizontal="35dp"/>
     <android.support.v7.widget.RecyclerView

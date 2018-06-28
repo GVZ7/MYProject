@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private String userId="Tommy";
 
     private int[] tabIcons = {
-            R.drawable.ic_home,
-            R.drawable.ic_description,
-            R.drawable.ic_search,
+            R.drawable.home1,
+            R.drawable.list1,
+            R.drawable.search1,
             R.drawable.ic_setting
     };
     @Override
@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
     private void AddFragments(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //Adding Fragments
-        adapter.AddFragments(new HomepageFragment(),"Home");
-        adapter.AddFragments(new FaculitiesFragment(),"Description");
-        adapter.AddFragments(new SearchFragment(),"Search");
+        adapter.AddFragments(new HomepageFragment(),"");
+        adapter.AddFragments(new FaculitiesFragment(),"");
+        adapter.AddFragments(new SearchFragment(),"");
     //    adapter.AddFragments(new SettingFragment(),"Setting");
 
         //adapter setup
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-      // tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+   //    tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
     // loading username Email in drawer

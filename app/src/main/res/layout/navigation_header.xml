@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#f4f4"
+    android:background="#f2f2f2"
     android:padding="20dp">
     <com.facebook.drawee.view.SimpleDraweeView
         app:roundAsCircle="true"

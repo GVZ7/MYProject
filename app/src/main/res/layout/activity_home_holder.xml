@@ -13,6 +13,7 @@
             android:id="@+id/img_major"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:roundedCornerRadius="15dp"
             app:placeholderImage="@drawable/img_profile">
 
         </com.facebook.drawee.view.SimpleDraweeView>
@@ -26,7 +27,6 @@
        <TextView
            android:id="@+id/major_name"
            android:layout_marginTop="15dp"
-           android:textColor="#f4f4"
            android:textSize="18dp"
            android:layout_gravity="center"
            android:text="zzzzzzzzzz"
