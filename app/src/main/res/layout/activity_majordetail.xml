@@ -11,6 +11,4 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="206dp"
         android:text="HELLO World" />
-
-
 </RelativeLayout>
