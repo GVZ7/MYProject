@@ -97,10 +97,15 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     byte[] bytes = task.getResult();
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);//get pic from firebase
+                    //add pic to profile
+                    ImageView homepic=findViewById(R.id.home_pic);
+                    homepic.setImageBitmap(bitmap);
+
                     //create img in view
                     View headerview =navigationView.getHeaderView(0);
-                    ImageView img=headerview.findViewById(R.id.img_profile);
+                    ImageView img=headerview.findViewById(R.id.img_profile);//should be simpedraweeimage
                     img.setImageBitmap(bitmap);//put pic in img
+
                 } else {
                     Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
                     Log.d("ckcc", "Load profile image fail: " + task.getException());
