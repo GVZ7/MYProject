@@ -68,7 +68,8 @@
         <!--image radio button-->
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/radiogroup">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -100,7 +101,8 @@
                     android:layout_alignEnd="@+id/white"
                     android:layout_alignParentTop="true"
                     android:layout_alignRight="@+id/white"
-                    android:buttonTint="@color/colorPrimaryDark" />
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:onClick="onCheck"/>
 
                 <RadioButton
                     android:id="@+id/dark_theme_choosen"
@@ -109,7 +111,8 @@
                     android:layout_alignEnd="@+id/black"
                     android:layout_alignParentTop="true"
                     tools:ignore="RtlCompat,UnknownId"
-                    android:buttonTint="@color/Orange" />
+                    android:buttonTint="@color/Orange"
+                    android:onClick="onCheck"/>
 
 
             </RelativeLayout>
