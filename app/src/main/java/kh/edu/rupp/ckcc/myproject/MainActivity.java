@@ -3,6 +3,7 @@ package kh.edu.rupp.ckcc.myproject;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,8 +22,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +39,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import javax.annotation.Nullable;
@@ -63,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
          tabLayout = findViewById(R.id.abbtab);
          viewPager = findViewById(R.id.viewpager);
          AddFragments();
+         loadProfileInfoFromFacebook();
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
            @Override
            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                }
                if(item.getItemId()==R.id.mnu_GetInTouch){
                    onGetInTouchClick();
+               }
+               if(item.getItemId()==R.id.mnu_logout){
+                   onLogoutClick();
                }
                if(item.getItemId()==R.id.mnu_profile){
                    onProfileClick();
@@ -99,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);//get pic from firebase
                     //create img in view
                     View headerview =navigationView.getHeaderView(0);
-                    ImageView img=headerview.findViewById(R.id.img_profile);
+                    ImageView img=headerview.findViewById(R.id.img_profile_navigation);
                     img.setImageBitmap(bitmap);//put pic in img
                 } else {
                     Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
@@ -108,6 +119,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         loaddata();
+        User user = SingleTon.getInstance().getUser();
+        if (user != null) {
+            View headerView = navigationView.getHeaderView(0);
+            SimpleDraweeView imgProfile = headerView.findViewById(R.id.img_profile_navigation);
+            imgProfile.setImageURI(user.getProfilePicture());
+            TextView txtEmail =headerView.findViewById(R.id.email);
+            TextView txtUsername = headerView.findViewById(R.id.username);
+            txtUsername.setText(user.getName());
+        }
     }
     private void AddFragments(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -151,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         txtEmail.setText(profile.getEmail());
 
                         //imgURL
-                        SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile);
+                        SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile_navigation);
                         imgUrl.setImageURI(profile.getImgUrl());
                     }
            }
@@ -224,5 +244,61 @@ public class MainActivity extends AppCompatActivity {
     public void click_to_profile(View view) {
         Intent intent=new Intent(this,Profile_activity.class);
         startActivity(intent);
+    }
+    public void onLogoutClick() {
+        // Remove current user
+        SingleTon.getInstance().setUser(null);
+        SharedPreferences preferences = getSharedPreferences("MyProject", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("user");
+        editor.apply();
+       AccessToken accessToken= AccessToken.getCurrentAccessToken();
+       accessToken=null;
+
+        // Move to LoginActivity
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
+
+
+    private void loadProfileInfoFromFacebook(){
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        GraphRequest request = GraphRequest.newMeRequest(
+                accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            String id = object.getString("id");
+                            String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
+                            String name = object.getString("name");
+                            String email = object.getString("email");
+
+
+                             SimpleDraweeView imgProfile = findViewById(R.id.img_profile_navigation);
+                            imgProfile.setImageURI(profileUrl);
+                            TextView txtName = findViewById(R.id.username);
+                            txtName.setText(name);
+                            TextView txt_email = findViewById(R.id.email);
+                            txt_email.setText(email);
+
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 }

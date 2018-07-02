@@ -10,6 +10,6 @@
     <group android:id="@+id/group_2">
         <item android:id="@+id/mnu_GetInTouch" android:icon="@drawable/ic_about" android:title="Get In Touch"/>
         <item android:id="@+id/mnu_about"  android:icon="@drawable/ic_about" android:title="About"/>
-
+        <item android:id="@+id/mnu_logout"  android:icon="@drawable/ic_logout" android:title="LogOut"/>
     </group>
 </menu>

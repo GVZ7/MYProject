@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -34,7 +34,7 @@
             android:hint="Username"
             android:layout_height="wrap_content" />
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/login_email"
             android:layout_below="@id/username"
             android:layout_width="300dp"
             android:hint="Phone or Email"
@@ -44,7 +44,7 @@
             android:id="@+id/btn_signin"
             android:layout_width="300dp"
             android:background="@drawable/rounded_button"
-            android:layout_below="@id/email"
+            android:layout_below="@id/login_email"
             android:text="signin"
             android:layout_height="wrap_content" />
         <TextView
@@ -73,13 +73,14 @@
             android:layout_below="@id/txtconnect-to"
             android:layout_marginTop="30dp"
             android:layout_height="80dp" />
-        <ImageView
-            android:id="@+id/facebook"
-            android:layout_width="70dp"
-            android:src="@drawable/fbs"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook"
+            android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
+            android:src="@drawable/ic_emotion"
             android:layout_below="@id/txtconnect-to"
-            android:layout_height="80dp" />
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 </LinearLayout>

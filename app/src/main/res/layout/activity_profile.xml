@@ -15,6 +15,7 @@
         android:layout_width="100dp"
         app:placeholderImage="@drawable/ic_emotion"
         android:src="@drawable/ic_emotion"
+        app:roundAsCircle="true"
         android:layout_height="100dp"
         android:onClick="profile_click"/>
     </LinearLayout>

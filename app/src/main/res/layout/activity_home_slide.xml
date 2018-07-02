@@ -9,7 +9,7 @@
         android:id="@+id/item_slide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:roundAsCircle="true"
+        app:roundedCornerRadius="25dp"
         />
 
 </FrameLayout>
