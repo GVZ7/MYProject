@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+       // FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 //        showHashKey();
         signin = findViewById(R.id.btn_signin);

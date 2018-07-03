@@ -27,6 +27,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -252,8 +253,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove("user");
         editor.apply();
-       AccessToken accessToken= AccessToken.getCurrentAccessToken();
-       accessToken=null;
+//       AccessToken accessToken= AccessToken.getCurrentAccessToken();
+//       accessToken=null;
+
+        LoginManager.getInstance().logOut();
 
         // Move to LoginActivity
         Intent intent = new Intent(this, LoginActivity.class);
@@ -265,40 +268,41 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void loadProfileInfoFromFacebook(){
+    private void loadProfileInfoFromFacebook() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        GraphRequest request = GraphRequest.newMeRequest(
-                accessToken,
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        try {
-                            String id = object.getString("id");
-                            String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
-                            String name = object.getString("name");
-                            String email = object.getString("email");
+        if (accessToken != null) {
 
 
-                             SimpleDraweeView imgProfile = findViewById(R.id.img_profile_navigation);
-                            imgProfile.setImageURI(profileUrl);
-                            TextView txtName = findViewById(R.id.username);
-                            txtName.setText(name);
-                            TextView txt_email = findViewById(R.id.email);
-                            txt_email.setText(email);
+            GraphRequest request = GraphRequest.newMeRequest(
+                    accessToken,
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                String id = object.getString("id");
+                                String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
+                                String name = object.getString("name");
+                                String email = object.getString("email");
 
 
+                                SimpleDraweeView imgProfile = findViewById(R.id.img_profile_navigation);
+                                imgProfile.setImageURI(profileUrl);
+                                TextView txtName = findViewById(R.id.username);
+                                txtName.setText(name);
+                                TextView txt_email = findViewById(R.id.email);
+                                txt_email.setText(email);
 
 
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
+                    });
 
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email");
-        request.setParameters(parameters);
-        request.executeAsync();
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,email");
+            request.setParameters(parameters);
+            request.executeAsync();
+        }
     }
 }
