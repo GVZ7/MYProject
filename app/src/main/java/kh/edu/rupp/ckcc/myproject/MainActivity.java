@@ -11,11 +11,13 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -184,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void onProfileClick() {
         drawerLayout.closeDrawers();
-
         Intent intent=new Intent(this,Profile_activity.class);
         startActivity(intent);
 
@@ -243,8 +244,9 @@ public class MainActivity extends AppCompatActivity {
     }
     //click pic
     public void click_to_profile(View view) {
-        Intent intent=new Intent(this,Profile_activity.class);
-        startActivity(intent);
+//        Intent intent=new Intent(this,Profile_activity.class);
+//        startActivity(intent);
+        drawerLayout.openDrawer(Gravity.LEFT);
     }
     public void onLogoutClick() {
         // Remove current user
