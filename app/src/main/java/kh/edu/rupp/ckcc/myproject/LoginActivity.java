@@ -57,21 +57,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
     private void checkIfUserAlreadyLoggedIn() {
-        // Check login via username/password
-//        SharedPreferences preferences = getSharedPreferences("ckcc", MODE_PRIVATE);
-//        String userJsonString = preferences.getString("user", null);
-//        if (userJsonString != null) {
-//            Gson gson = new Gson();
-//            User user = gson.fromJson(userJsonString, User.class);
-//            MyApp.getInstance().setUser(user);
-//
-//            // Start MainActivity
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
-//
-//            // Finish current activity
-//            finish();
-//        }
+//         Check login via username/password
+        SharedPreferences preferences = getSharedPreferences("ckcc", MODE_PRIVATE);
+        String userJsonString = preferences.getString("user", null);
+        if (userJsonString != null) {
+            Gson gson = new Gson();
+            User user = gson.fromJson(userJsonString, User.class);
+            SingleTon.getInstance().setUser(user);
+
+            // Start MainActivity
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+
+            // Finish current activity
+            finish();
+        }
 
         // check login via Facebook
         if (AccessToken.getCurrentAccessToken() != null) {
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onSuccess(LoginResult loginResult) {
 
-        Toast.makeText(this, "Login with Facebook error.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Login with facebook succeeded.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 

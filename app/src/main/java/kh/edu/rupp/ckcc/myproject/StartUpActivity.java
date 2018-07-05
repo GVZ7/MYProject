@@ -16,7 +16,9 @@ public class StartUpActivity extends Activity {
             public void run() {
                 Intent intent = new Intent(StartUpActivity.this,LoginActivity.class);
                 startActivity(intent);
+
             }
-        },300);
+        },500);
+
     }
 }

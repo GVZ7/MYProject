@@ -101,34 +101,34 @@ public class MainActivity extends AppCompatActivity {
 
        });
         // Load profile image from Firebase storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
-        profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-            @Override
-            public void onComplete(@NonNull Task<byte[]> task) {
-                if(task.isSuccessful()){
-                    byte[] bytes = task.getResult();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);//get pic from firebase
-                    //create img in view
-                    View headerview =navigationView.getHeaderView(0);
-                    ImageView img=headerview.findViewById(R.id.img_profile_navigation);
-                    img.setImageBitmap(bitmap);//put pic in img
-                } else {
-                    Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-                    Log.d("ckcc", "Load profile image fail: " + task.getException());
-                }
-            }
-        });
-        loaddata();
-        User user = SingleTon.getInstance().getUser();
-        if (user != null) {
-            View headerView = navigationView.getHeaderView(0);
-            SimpleDraweeView imgProfile = headerView.findViewById(R.id.img_profile_navigation);
-            imgProfile.setImageURI(user.getProfilePicture());
-            TextView txtEmail =headerView.findViewById(R.id.email);
-            TextView txtUsername = headerView.findViewById(R.id.username);
-            txtUsername.setText(user.getName());
-        }
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
+//        profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+//            @Override
+//            public void onComplete(@NonNull Task<byte[]> task) {
+//                if(task.isSuccessful()){
+//                    byte[] bytes = task.getResult();
+//                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);//get pic from firebase
+//                    //create img in view
+//                    View headerview =navigationView.getHeaderView(0);
+//                    ImageView img=headerview.findViewById(R.id.img_profile_navigation);
+//                    img.setImageBitmap(bitmap);//put pic in img
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
+//                    Log.d("ckcc", "Load profile image fail: " + task.getException());
+//                }
+//            }
+//        });
+//        loaddata();
+//        User user = SingleTon.getInstance().getUser();
+//        if (user != null) {
+//            View headerView = navigationView.getHeaderView(0);
+//            SimpleDraweeView imgProfile = headerView.findViewById(R.id.img_profile_navigation);
+//            imgProfile.setImageURI(user.getProfilePicture());
+//            TextView txtEmail =headerView.findViewById(R.id.email);
+//            TextView txtUsername = headerView.findViewById(R.id.username);
+//            txtUsername.setText(user.getName());
+//        }
     }
     private void AddFragments(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Finish current activity
-        finish();
+    //    finish();
     }
 
     private void onFeedbackClick() {
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Finish current activity
-        finish();
+       // finish();
     }
 
     private void onBookmarkClick() {
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Finish current activity
-        finish();
+     //   finish();
 
     }
 
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Finish current activity
-        finish();
+      //  finish();
     }
 
     private void onSettingClick() {
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         // Finish current activity
-        finish();
+     //   finish();
     }
     //click pic
     public void click_to_profile(View view) {
@@ -253,9 +253,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove("user");
         editor.apply();
-//       AccessToken accessToken= AccessToken.getCurrentAccessToken();
-//       accessToken=null;
-
         LoginManager.getInstance().logOut();
 
         // Move to LoginActivity
@@ -271,8 +268,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadProfileInfoFromFacebook() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
-
-
             GraphRequest request = GraphRequest.newMeRequest(
                     accessToken,
                     new GraphRequest.GraphJSONObjectCallback() {
