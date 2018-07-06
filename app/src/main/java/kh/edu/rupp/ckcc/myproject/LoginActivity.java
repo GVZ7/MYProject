@@ -6,13 +6,17 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -36,8 +45,12 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,FacebookCallback<LoginResult> {
-    private Button signin;
+public class LoginActivity extends AppCompatActivity implements FacebookCallback<LoginResult>,OnCompleteListener<AuthResult> {
+    private Button btnsignin,btnsignup;
+    private EditText txtemail;
+    private EditText txtpassword;
+
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();//for sign in firebase
     private CallbackManager callbackManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +58,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
        // FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 //        showHashKey();
-        signin = findViewById(R.id.btn_signin);
-        signin.setOnClickListener(this);
+        txtemail=findViewById(R.id.username);
+        txtpassword=findViewById(R.id.login_password);
+        //button signin
+        btnsignin = findViewById(R.id.btn_signin);
+        btnsignin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signin();
+            }
+        });
+        //button signup
+        btnsignup = findViewById(R.id.btn_signup);
+        btnsignup.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signup();
+            }
+        });
+
 
         checkIfUserAlreadyLoggedIn();
         // Facebook authentication
@@ -85,11 +115,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-        finish();
+    //button sign up function
+    private void signin(){
+
+        firebaseAuth.signInWithEmailAndPassword(txtemail.getText().toString(), txtpassword.getText().toString()).addOnCompleteListener(this);
+    }
+    //buttom sign up function
+    private void signup(){
+        firebaseAuth.createUserWithEmailAndPassword(txtemail.getText().toString(),txtpassword.getText().toString()).addOnCompleteListener(this);
     }
 
     @Override
@@ -134,5 +167,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void loginWithFacebook(View view) {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "name"));
     }
+    //Sign in with Firebse
+    @Override
+    public void onComplete(@NonNull Task<AuthResult> task) {
+        if (task.isSuccessful()) {
+            // Sign in success, update UI with the signed-in user's information
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // If sign in fails, display a message to the user.
+            Toast.makeText(this, "Login with Firebase error.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
+
 
 }

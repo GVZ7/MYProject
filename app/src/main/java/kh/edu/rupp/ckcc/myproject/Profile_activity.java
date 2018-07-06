@@ -20,6 +20,8 @@ import com.facebook.GraphResponse;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,14 +36,12 @@ public class Profile_activity extends AppCompatActivity
 {
     private ImageView profileimg;
     private String userId="Tommy";
-
+    private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-
         //click image
         profileimg = findViewById(R.id.draw_profile);
 

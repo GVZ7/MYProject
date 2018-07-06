@@ -284,7 +284,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 SimpleDraweeView imgProfile = findViewById(R.id.img_profile_navigation);
+                                SimpleDraweeView imgProfile_home = findViewById(R.id.img_home);
                                 imgProfile.setImageURI(profileUrl);
+                                imgProfile_home.setImageURI(profileUrl);
                                 TextView txtName = findViewById(R.id.username);
                                 txtName.setText(name);
                                 TextView txt_email = findViewById(R.id.email);

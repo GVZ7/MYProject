@@ -20,9 +20,10 @@ tools:context="kh.edu.rupp.ckcc.myproject.MainActivity">
         android:layout_marginTop="10dp"
         >
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/home_pic"
+            android:id="@+id/img_home"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            app:roundAsCircle="true"
             app:placeholderImage="@drawable/img_profile"
             android:onClick="click_to_profile"/>
         <TextView
