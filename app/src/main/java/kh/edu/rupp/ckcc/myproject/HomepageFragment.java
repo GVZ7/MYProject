@@ -27,9 +27,9 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
    private ViewPager viewPager;
    private MajorAdapter majorAdapter;
     private SlideShowHomePage slideShowHomePage;
+ private PageIndicatorView pageIndicatorView;
 
 
-    private int [] imgSlide= {R.drawable.ic_profile,R.drawable.ic_description};
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -45,11 +45,12 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
         viewPager = view.findViewById(R.id.view_pager_home);
         slideShowHomePage= new SlideShowHomePage();
         loadSlidefromfirestore();
+
         viewPager.setAdapter(slideShowHomePage);
-        final PageIndicatorView pageIndicatorView = view.findViewById(R.id.page_indicator);
+         pageIndicatorView = view.findViewById(R.id.page_indicator);
         pageIndicatorView.setAnimationType(AnimationType.DROP);
-        pageIndicatorView.setCount(imgSlide.length);
-        pageIndicatorView.setSelection(0);
+//        pageIndicatorView.setCount(0);
+//        pageIndicatorView.setSelection(0);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -58,7 +59,7 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
 
             @Override
             public void onPageSelected(int position) {
-
+                pageIndicatorView.setSelection(position);
             }
 
             @Override
@@ -144,5 +145,6 @@ public class HomepageFragment extends android.support.v4.app.Fragment{
             index++;
         }
         slideShowHomePage.setImageid(slides);
+        pageIndicatorView.setCount(slides.length);
     }
 }

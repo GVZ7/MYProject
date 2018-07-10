@@ -31,13 +31,13 @@
         <EditText
             android:id="@+id/username"
             android:layout_width="300dp"
-            android:hint="Username"
+            android:hint="Username /  Email"
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/login_password"
             android:layout_below="@id/username"
             android:layout_width="300dp"
-            android:hint="Phone or Email"
+            android:hint="password"
             android:layout_height="wrap_content" />
         <Button
             android:layout_margin="20dp"
