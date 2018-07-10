@@ -5,25 +5,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
-        android:id="@+id/username_registration"
+        android:id="@+id/signup_email"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="164dp"
+        android:hint="Email"
+        android:layout_alignParentLeft="true" />
+
+    <EditText
+        android:id="@+id/signup_password"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:hint="Password"
+        android:layout_alignParentLeft="true" />
+
+
+    <EditText
+        android:id="@+id/signup_user"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="209dp"
+        android:layout_marginBottom="158dp"
         android:hint="Username"
         android:layout_alignParentLeft="true" />
 
-    <!--com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="180dp"
+        android:layout_height="170dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/pic_registration"
         app:placeholderImage="@drawable/ic_profile"
-        android:onClick="choose_picture"/-->
+        android:onClick="choose_picture"/>
     <Button
-        android:id="@+id/registor"
+        android:id="@+id/btn-summit"
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -32,16 +52,4 @@
         android:background="@drawable/rounded_button"
         android:onClick="register"
         android:text="Register" />
-
-    <!--TextView
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/pic_registration"
-        android:layout_alignEnd="@+id/pic_registration"
-        android:text="Choose Picture"
-        android:layout_alignRight="@+id/pic_registration"
-        android:textSize="21dp"
-        android:paddingHorizontal="12dp"/-->
-
-
 </RelativeLayout>

@@ -39,7 +39,7 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
 
         email=findViewById(R.id.signup_email);
         password=findViewById(R.id.signup_password);
-//        usename=findViewById(R.id.signup_username);
+        usename=findViewById(R.id.signup_user);
 
         button1= findViewById(R.id.btn_summit);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
             //FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
-            Intent intent = new Intent(signup.this,registor.class);
+            Intent intent = new Intent(signup.this,MainActivity.class);
             startActivity(intent);
             finish();
         } else {
