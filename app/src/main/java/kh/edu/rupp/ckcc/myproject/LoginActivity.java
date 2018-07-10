@@ -74,7 +74,9 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         btnsignup.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+
+                Intent intent=new Intent(LoginActivity.this,signup.class);
+                startActivity(intent);
             }
         });
 
@@ -124,11 +126,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
 
 
     }
-    //buttom sign up function
-    private void signup(){
-        firebaseAuth.createUserWithEmailAndPassword(txtemail.getText().toString(),txtpassword.getText().toString()).addOnCompleteListener(this);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
