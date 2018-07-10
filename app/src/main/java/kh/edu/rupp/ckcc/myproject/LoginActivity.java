@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private Button btnsignin,btnsignup;
     private EditText txtemail;
     private EditText txtpassword;
-
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();//for sign in firebase
     private CallbackManager callbackManager;
     @Override
@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             @Override
             public void onClick(View v) {
                 signin();
+
             }
         });
         //button signup
@@ -121,6 +122,9 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private void signin(){
 
         firebaseAuth.signInWithEmailAndPassword(txtemail.getText().toString(), txtpassword.getText().toString()).addOnCompleteListener(this);
+
+
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -173,9 +177,13 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
             finish();
+//            TextView txtEmailNavigation=findViewById(R.id.username_navigation);
+//            String email=user.getEmail();
+//            txtEmailNavigation.setText(email);
         } else {
             // If sign in fails, display a message to the user.
             Toast.makeText(this, "Login with Firebase error.", Toast.LENGTH_LONG).show();
+            Log.d("COMPLETE",task.getException().getMessage());
         }
     }
 
