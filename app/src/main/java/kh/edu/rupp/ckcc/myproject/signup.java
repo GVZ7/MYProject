@@ -16,12 +16,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class signup extends AppCompatActivity implements OnCompleteListener<AuthResult>
 {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private EditText email;
     private EditText password;
+    private EditText usename;
 
    private Button button1;
 
@@ -33,13 +39,13 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
 
         email=findViewById(R.id.signup_email);
         password=findViewById(R.id.signup_password);
+//        usename=findViewById(R.id.signup_username);
 
         button1= findViewById(R.id.btn_summit);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signup();
-
             }
         });
 
@@ -54,8 +60,10 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
     public void onComplete(@NonNull Task<AuthResult> task) {
         if (task.isSuccessful()) {
             // Sign in success, update UI with the signed-in user's information
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            Intent intent = new Intent(this,MainActivity.class);
+            //FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+            Intent intent = new Intent(signup.this,registor.class);
             startActivity(intent);
             finish();
         } else {
