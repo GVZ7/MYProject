@@ -10,6 +10,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -41,6 +42,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -122,9 +124,10 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private void signin(){
 
         firebaseAuth.signInWithEmailAndPassword(txtemail.getText().toString(), txtpassword.getText().toString()).addOnCompleteListener(this);
-
-
-
+//        String userID=user.getUid();
+//        String userEmail=user.getEmail();
+//        String userName=user.getDisplayName();
+//        Toast.makeText(this,userID + userEmail+"  "+ userName,Toast.LENGTH_LONG).show();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
