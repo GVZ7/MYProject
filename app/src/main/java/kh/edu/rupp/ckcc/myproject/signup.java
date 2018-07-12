@@ -46,6 +46,7 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
     private EditText usename;
     private ImageView imgprofile;
 
+    Bitmap bitmap;
 
     Uri uriprofile;
     String profileimgurl;
@@ -95,27 +96,43 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
     public void onComplete(@NonNull Task<AuthResult> task) {
         if (task.isSuccessful()) {
             // Sign in success, update UI with the signed-in user's information
-            //FirebaseUser user = firebaseAuth.getCurrentUser();
+            final FirebaseUser user = firebaseAuth.getCurrentUser();
 
-            String e=email.getText().toString();
-            String u=usename.getText().toString();
-//            String i=imgprofile.setImageURI();
-
-
-            Map<String,String>usermap = new HashMap<>();
-            usermap.put("Username",u);
-            usermap.put("Email",e);
- //           usermap.put("ImgUrl",i);
-
-            db.collection("Profile").document(task.getResult().getUser().getUid()).set(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            final StorageReference profileRef = storage.getReference().child("images").child("Profile").child(user.getUid()+".jpg");
+            profileRef.putFile(uriprofile).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Intent intent = new Intent(signup.this,MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful()){
+                        profileRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                String imageUrl = task.getResult().toString();
+                                String e=email.getText().toString();
+                                String u=usename.getText().toString();
+
+
+                                Map<String,String>usermap = new HashMap<>();
+                                usermap.put("Username",u);
+                                usermap.put("Email",e);
+                                usermap.put("ImgUrl",imageUrl);
+
+                                db.collection("Profile").document(user.getUid()).set(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Intent intent = new Intent(signup.this,MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+
+                        Log.d("ckcc", "Upload profile image fail: " + task.getException());
+                    }
                 }
             });
-
 
         } else {
             // If sign in fails, display a message to the user.
@@ -128,15 +145,15 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
         super.onActivityResult(requestCode, resultCode, data);
 
         // Load selected image
-        if(resultCode == RESULT_OK && requestCode == 1&& data.getData()!=null&&data!=null){
+        if(resultCode == RESULT_OK && requestCode == 1&& data.getData()!=null){
             try {
                 // Set image to image view
                 uriprofile=data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriprofile);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriprofile);
                 imgprofile.setImageBitmap(bitmap);
 
                 // Save image to Firebase Storage
-                uploadImageToFirebaseStorage(bitmap);
+                //uploadImageToFirebaseStorage(bitmap);
 
             } catch (IOException e) {
                 Toast.makeText(this, "Error while selecting profile image.", Toast.LENGTH_LONG).show();
@@ -148,21 +165,21 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
     //upload pic to storage
     private void uploadImageToFirebaseStorage(Bitmap bitmap){
 
-        //get username 
-        TextView userId=findViewById(R.id.signup_user);
+        //get username
+        EditText userId=findViewById(R.id.signup_user);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
+            StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId.getText()+".jpg");
         profileRef.putFile(uriprofile).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful()){
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful()){
 
-                } else {
+                    } else {
 
-                    Log.d("ckcc", "Upload profile image fail: " + task.getException());
+                        Log.d("ckcc", "Upload profile image fail: " + task.getException());
+                    }
                 }
-            }
         });
     }
 
