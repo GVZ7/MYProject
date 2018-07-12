@@ -263,11 +263,6 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-
-
-
-
-
     private void loadProfileInfoFromFacebook() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
