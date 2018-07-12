@@ -33,6 +33,8 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String userId="Tommy";
 
     private int[] tabIcons = {
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
          tabLayout = findViewById(R.id.abbtab);
          viewPager = findViewById(R.id.viewpager);
          AddFragments();
+         loaddata();
+//         loaddataFromFireBase();
          loadProfileInfoFromFacebook();
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
            @Override
@@ -158,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
        FirebaseFirestore db = FirebaseFirestore.getInstance();
        //read data
-       db.collection("Profile").document("ndqLK4kQlgD2osE16iOF").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+       db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
            @Override
            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     if(documentSnapshot==null){
@@ -168,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     else{
                         Profile profile = documentSnapshot.toObject(Profile.class);
                         View headerView= navigationView.getHeaderView(0);
-                        TextView txtName = headerView.findViewById(R.id.username);
+                        TextView txtName = headerView.findViewById(R.id.username_navigation);
                         txtName.setText(profile.getUsername());
                         TextView txtEmail= headerView.findViewById(R.id.email);
                         txtEmail.setText(profile.getEmail());
@@ -181,6 +186,19 @@ public class MainActivity extends AppCompatActivity {
        });
    }
 
+//    private void loaddataFromFireBase(){
+//        String userID = user.getUid();
+//        String userEmail=user.getEmail();
+//        String userName=user.getDisplayName();
+//        Uri userProfile=user.getPhotoUrl();
+//        View headerView=navigationView.getHeaderView(0);
+//        TextView txtEmail=headerView.findViewById(R.id.email);
+//        txtEmail.setText(userEmail);
+//        TextView txtUserName=headerView.findViewById(R.id.username_navigation);
+//        txtUserName.setText(userName);
+//        SimpleDraweeView imgUrl=headerView.findViewById(R.id.img_profile_navigation);
+//        imgUrl.setImageURI(userProfile);
+//    }
 
 
 
@@ -277,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
                                 String name = object.getString("name");
                                 String email = object.getString("email");
 
-
                                 SimpleDraweeView imgProfile = findViewById(R.id.img_profile_navigation);
                                 SimpleDraweeView imgProfile_home = findViewById(R.id.img_home);
                                 imgProfile.setImageURI(profileUrl);
@@ -286,7 +303,6 @@ public class MainActivity extends AppCompatActivity {
                                 txtName.setText(name);
                                 TextView txt_email = findViewById(R.id.email);
                                 txt_email.setText(email);
-
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
