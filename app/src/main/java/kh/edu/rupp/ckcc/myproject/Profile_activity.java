@@ -35,7 +35,7 @@ import java.io.IOException;
 public class Profile_activity extends AppCompatActivity
 {
     private ImageView profileimg;
-    private String userId="Tommy";
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
 
     @Override
@@ -47,7 +47,7 @@ public class Profile_activity extends AppCompatActivity
 
         // Load profile image from Firebase storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
+        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
         profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
             @Override
             public void onComplete(@NonNull Task<byte[]> task) {
@@ -57,7 +57,7 @@ public class Profile_activity extends AppCompatActivity
                     profileimg.setImageBitmap(bitmap);
                 } else {
                     Toast.makeText(Profile_activity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-                    Log.d("ckcc", "Load profile image fail: " + task.getException());
+                    Log.d("ckcc", "Load Profile-activity image fail : " + task.getException());
                 }
             }
         });
@@ -97,7 +97,7 @@ public class Profile_activity extends AppCompatActivity
 
     private void uploadImageToFirebaseStorage(Bitmap bitmap){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
+        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         byte[] bytes = outputStream.toByteArray();

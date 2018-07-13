@@ -1,5 +1,6 @@
 package kh.edu.rupp.ckcc.myproject;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -31,10 +32,12 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,13 +53,14 @@ import org.w3c.dom.Text;
 
 import javax.annotation.Nullable;
 
+import io.grpc.Context;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private String userId="Tommy";
 
     private int[] tabIcons = {
             R.drawable.home1,
@@ -161,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     // loading username Email in drawer
    private void loaddata() {
 
-       FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
        //read data
        db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
            @Override
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Ckcc","LoadDataError: "+e);
                     }
                     else{
-                        Profile profile = documentSnapshot.toObject(Profile.class);
+                        final Profile profile = documentSnapshot.toObject(Profile.class);
                         View headerView= navigationView.getHeaderView(0);
                         TextView txtName = headerView.findViewById(R.id.username_navigation);
                         txtName.setText(profile.getUsername());
@@ -179,11 +183,31 @@ public class MainActivity extends AppCompatActivity {
                         txtEmail.setText(profile.getEmail());
 
                         //imgURL
-                        SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile_navigation);
-                        imgUrl.setImageURI(profile.getImgUrl());
+                        final SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile_navigation);
+//                        imgUrl.setImageURI(profile.getImgUrl());
+                        final SimpleDraweeView imgUrl1=findViewById(R.id.img_home);
+
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageReference = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
+                        storageReference.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+                            @Override
+                            public void onComplete(@NonNull Task<byte[]> task) {
+                                if(task.isSuccessful()){
+                                    byte[] bytes = task.getResult();
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    imgUrl.setImageBitmap(bitmap);
+                                    imgUrl1.setImageBitmap(bitmap);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
+                                    Log.d("ckcc", "Load hillprofile image fail: " + task.getException());
+                                }
+                            }
+                        });
                     }
            }
        });
+
+
    }
 
 //    private void loaddataFromFireBase(){

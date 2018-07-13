@@ -95,9 +95,8 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
         if (task.isSuccessful()) {
-            // Sign in success, update UI with the signed-in user's information
+            // Sign up success, update UI with the signed-in user's information
             final FirebaseUser user = firebaseAuth.getCurrentUser();
-
             FirebaseStorage storage = FirebaseStorage.getInstance();
             final StorageReference profileRef = storage.getReference().child("images").child("Profile").child(user.getUid()+".jpg");
             profileRef.putFile(uriprofile).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -137,6 +136,7 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
         } else {
             // If sign in fails, display a message to the user.
             Toast.makeText(this, "signup with Firebase error.", Toast.LENGTH_LONG).show();
+            Log.d("signup", "singuperror " + task.getException());
         }
     }
 
