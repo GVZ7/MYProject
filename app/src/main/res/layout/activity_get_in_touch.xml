@@ -12,10 +12,12 @@
 
 
         <ImageButton
+            android:id="@+id/back_getintouch"
             android:layout_width="45dp"
             android:layout_height="45dp"
             app:srcCompat="@drawable/ic_back"
             android:layout_gravity="center"
+            android:onClick="back_getintourch"
             />
 
         <TextView
@@ -36,20 +38,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:hint="Call us"/>
-        <EditText
+            android:text="Call US : 070 349 589"
+            android:textSize="20dp"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:hint="Email Us"/>
+            android:hint="Email Us : Imav@.org.com.kh"
+            android:textSize="20dp"/>
 
 
         <!--imagebutton-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
 
             <ImageButton
                 android:id="@+id/facebook"
@@ -61,9 +66,11 @@
                 android:layout_marginStart="72dp"
                 android:background="@drawable/facebook"
                 android:layout_marginLeft="72dp"
-                android:layout_alignParentLeft="true" />
+                android:layout_alignParentLeft="true"
+                android:onClick="gotofacebook"/>
 
             <ImageButton
+                android:id="@+id/insta"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentEnd="true"
@@ -71,7 +78,8 @@
                 android:layout_marginEnd="86dp"
                 android:background="@drawable/insta"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="86dp" />
+                android:layout_marginRight="86dp"
+                android:onClick="gotoinsta"/>
 
         </RelativeLayout>
 

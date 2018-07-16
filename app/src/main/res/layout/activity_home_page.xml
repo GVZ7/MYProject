@@ -39,7 +39,7 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Most Major View"
+        android:text="Most Major Views"
         android:textStyle="italic"
         android:textSize="23dp"
         android:layout_marginHorizontal="35dp"/>

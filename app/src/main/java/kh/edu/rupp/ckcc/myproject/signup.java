@@ -36,6 +36,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+//Algorithms order
+//first need to create user in firebase
+//second store image of user to firebase storage
+//last store data of user to firebase database
 
 public class signup extends AppCompatActivity implements OnCompleteListener<AuthResult>
 {

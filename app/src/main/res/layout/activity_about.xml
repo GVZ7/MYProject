@@ -42,6 +42,7 @@
             android:textColor="@android:color/white"
             android:text="Do you like this app? If so,please help us and rate this app in Play store."/>
         <Button
+            android:id="@+id/rate_now"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/button_app"
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textColor="@android:color/white"
-            android:text="Don't you like somethong or do you have any ideas for improvement ?"/>
+            android:text="Don't you like something or do you have any ideas for improvement ?"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"

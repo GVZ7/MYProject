@@ -13,10 +13,12 @@
 
 
         <ImageButton
+            android:id="@+id/back_setting"
             android:layout_width="45dp"
             android:layout_height="45dp"
             app:srcCompat="@drawable/ic_back"
             android:layout_gravity="center"
+            android:onClick="back_setting"
             />
 
         <TextView
