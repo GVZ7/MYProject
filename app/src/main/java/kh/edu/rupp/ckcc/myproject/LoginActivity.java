@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,11 +55,12 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();//for sign in firebase
     private CallbackManager callbackManager;
+    private ImageButton btnFBct;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login3);
 //        showHashKey();
         txtemail=findViewById(R.id.username);
         txtpassword=findViewById(R.id.login_password);
@@ -86,6 +88,14 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         checkIfUserAlreadyLoggedIn();
         // Facebook authentication
        LoginButton loginButton = findViewById(R.id.btn_facebook);
+       btnFBct=(ImageButton)findViewById(R.id.btn_customFB);
+       btnFBct.setOnClickListener(new OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email"));
+           }
+       });
+
         loginButton.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager,this);

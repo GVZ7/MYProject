@@ -167,45 +167,48 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        //read data
-       db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-           @Override
-           public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if(documentSnapshot==null){
-                        Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
-                        Log.d("Ckcc","LoadDataError: "+e);
-                    }
-                    else{
-                        final Profile profile = documentSnapshot.toObject(Profile.class);
-                        View headerView= navigationView.getHeaderView(0);
-                        TextView txtName = headerView.findViewById(R.id.username_navigation);
-                        txtName.setText(profile.getUsername());
-                        TextView txtEmail= headerView.findViewById(R.id.email);
-                        txtEmail.setText(profile.getEmail());
+       if(user==null){
+           db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+               @Override
+               public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                   if(documentSnapshot==null){
+                       Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
+                       Log.d("Ckcc","LoadDataError: "+e);
+                   }
+                   else{
+                       final Profile profile = documentSnapshot.toObject(Profile.class);
+                       View headerView= navigationView.getHeaderView(0);
+                       TextView txtName = headerView.findViewById(R.id.username_navigation);
+                       txtName.setText(profile.getUsername());
+                       TextView txtEmail= headerView.findViewById(R.id.email);
+                       txtEmail.setText(profile.getEmail());
 
-                        //imgURL
-                        final SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile_navigation);
+                       //imgURL
+                       final SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile_navigation);
 //                        imgUrl.setImageURI(profile.getImgUrl());
-                        final SimpleDraweeView imgUrl1=findViewById(R.id.img_home);
+                       final SimpleDraweeView imgUrl1=findViewById(R.id.img_home);
 
-                        FirebaseStorage storage = FirebaseStorage.getInstance();
-                        StorageReference storageReference = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
-                        storageReference.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-                            @Override
-                            public void onComplete(@NonNull Task<byte[]> task) {
-                                if(task.isSuccessful()){
-                                    byte[] bytes = task.getResult();
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                    imgUrl.setImageBitmap(bitmap);
-                                    imgUrl1.setImageBitmap(bitmap);
-                                } else {
-                                    Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-                                    Log.d("ckcc", "Load hillprofile image fail: " + task.getException());
-                                }
-                            }
-                        });
-                    }
-           }
-       });
+                       FirebaseStorage storage = FirebaseStorage.getInstance();
+                       StorageReference storageReference = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
+                       storageReference.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
+                           @Override
+                           public void onComplete(@NonNull Task<byte[]> task) {
+                               if(task.isSuccessful()){
+                                   byte[] bytes = task.getResult();
+                                   Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                   imgUrl.setImageBitmap(bitmap);
+                                   imgUrl1.setImageBitmap(bitmap);
+                               } else {
+                                   Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
+                                   Log.d("ckcc", "Load hillprofile image fail: " + task.getException());
+                               }
+                           }
+                       });
+                   }
+               }
+           });
+
+       }
 
 
    }
