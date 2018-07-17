@@ -34,6 +34,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RateNowActivity">
+
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".bookmark_activity">
 
             <intent-filter>
@@ -70,6 +77,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".signup">
+
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RateNow">
 
             <intent-filter>
 
