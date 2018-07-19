@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
        // FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login3);
 //        showHashKey();
- //      txtemail=findViewById(R.id.username);
+         txtemail=findViewById(R.id.username);
         txtpassword=findViewById(R.id.login_password);
         //button signin
         btnsignin = findViewById(R.id.btn_signin);
