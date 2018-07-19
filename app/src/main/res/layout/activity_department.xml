@@ -1,54 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_margin="20dp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-        <TextView
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:textColor="#000"
-            android:text="ដេប៉ាតឺម៉ង់គណិតវិទ្យា"
-            android:textSize="20dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:layout_marginTop="5dp"
-            android:text="ដេប៉ាតឺម៉ង់គីមី"
-            android:textSize="20dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:text="ដេប៉ាតឺម៉ង់រូបវិទ្យា"
-            android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:text="ដេប៉ាតឺម៉ង់ជីវវិទ្យា"
-            android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:text="ដេប៉ាតឺម៉ង់ពត័មានវិទ្យា"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textSize="20dp"
-            android:textColor="#000"
-            android:layout_marginTop="5dp"
-            android:text="ដេប៉ាតឺម៉ង់បរិស្ថាន"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_faculty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/lv_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                </ListView>
+        </LinearLayout>
 </ScrollView>

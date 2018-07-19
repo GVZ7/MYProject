@@ -1,26 +1,19 @@
 package kh.edu.rupp.ckcc.myproject;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,74 +22,50 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment {
+public class activity_department extends AppCompatActivity {
 
     private ListView listView;
-    private ArrayAdapter<String> arrayAdapter;
-    private ArrayList<String> arrayList;
+    private ArrayList<Department> arrayList;
+    private ArrayAdapter<Department> arrayAdapter;
     private majors[] majors1;
     private int index = 0;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_search, container, false);
-        return view;
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_department);
+        listView = findViewById(R.id.lv_department);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        Intent intent = getIntent();
+        String dep = intent.getStringExtra("Faculties");
+        Gson gson = new Gson();
+        Faculty faculty = gson.fromJson(dep, Faculty.class);
 
-        listView = view.findViewById(R.id.lv_search);
-        EditText editText = view.findViewById(R.id.txt_search);
-        initListView();
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                arrayAdapter.getFilter().filter(s);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-    }
-
-    private void initListView() {
-
-        arrayList = new ArrayList<String>();
+        TextView textView = findViewById(R.id.txt_faculty);
+        textView.setText(faculty.getName());
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = db.collection("Majors1");
-        collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Faculties").document(faculty.getId()).collection("departments").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                arrayList = new ArrayList<Department>();
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        Log.d("init_majors", documentSnapshot.getId() + "=>" + documentSnapshot.getData());
-                        //arrayAdapter.add(documentSnapshot.getData().get("name").toString());
-                        arrayList.add(documentSnapshot.getString("name"));
+                        Department department = documentSnapshot.toObject(Department.class);
+                        department.setId(documentSnapshot.getId());
+                        arrayList.add(department);
                     }
-                    arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+                    arrayAdapter = new ArrayAdapter<Department>(activity_department.this, android.R.layout.simple_list_item_1, arrayList);
                     arrayAdapter.notifyDataSetChanged();
                     listView.setAdapter(arrayAdapter);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                         @Override
-                        public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-                            //Toast.makeText(getActivity(), "Click parent : " + parent.getItemAtPosition(position) , Toast.LENGTH_LONG).show();
-                            String st = (String) parent.getItemAtPosition(position);
+                        public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+
+                            Object st =  parent.getItemAtPosition(position);
 
                             String st_majors[] = {"Bioengineering", "Natural Resource Mgt and Development", "Biology", "Tourism", "Economic Development",
                                     "Philosophy", "Higher Education Development and Management", "Educational Studies", "Lifelong Learning",
@@ -105,7 +74,7 @@ public class SearchFragment extends Fragment {
                                     "Environmental Science", "Information Technology Engineering", "Physics", "Mathematics", "Media and Communication","Chemistry"};
 
                             for(int i=0; i<st_majors.length; i++){
-                                if(st.equals(st_majors[i])){
+                                if(st.toString().equals(st_majors[i])){
                                     index = i;
                                     break;
                                 }
@@ -119,30 +88,40 @@ public class SearchFragment extends Fragment {
                                         int i = 0;
                                         majors1 = new majors[task.getResult().size()];
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            // Convert Firestore document to Majors object
                                             majors major = document.toObject(majors.class);
                                             majors1[i] = major;
                                             i++;
                                         }
-                                        Context context = view.getContext();
-                                        Intent intent = new Intent(context, majordetail_activity.class);
+                                        //Context context = view.getContext();
+                                        Intent intent = new Intent(activity_department.this, majordetail_activity.class);
                                         majors major = majors1[index];
                                         Gson gson = new Gson();
                                         String eventJson = gson.toJson(major);
                                         intent.putExtra("Majors1", eventJson);
-                                        context.startActivity(intent);
+                                        startActivity(intent);
+
+
                                     } else {
-                                        Toast.makeText(getActivity(), "Load majors error.", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(activity_department.this, "Load majors error.", Toast.LENGTH_LONG).show();
                                         Log.d("load data", "Load majors error: " + task.getException());
                                     }
                                 }
                             });
-                            //
+
+//                            Context context = view.getContext();
+//                            Intent intent = new Intent(context, majordetail_activity.class);
+//                            Department department1 = arrayList.get(position);
+//                            Gson gson = new Gson();
+//                            String major = gson.toJson(department1);
+//                            intent.putExtra("departments", major);
+//                            context.startActivities(new Intent[]{intent});
+
                         }
+
                     });
 
                 } else {
-                    Log.d("init_majors", "Error Documents", task.getException());
+                    Log.d("ListView Department", "Error Documents", task.getException());
                 }
             }
         });

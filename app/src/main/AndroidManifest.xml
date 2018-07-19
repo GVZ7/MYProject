@@ -69,6 +69,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity_department">
+
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".majordetail_activity">
 
             <intent-filter>
@@ -93,7 +102,7 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_ID"/>
+            android:value="@string/facebook_ID" />
     </application>
 
 </manifest>

@@ -4,53 +4,18 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:layout_width="match_parent">
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:layout_height="match_parent">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:text="មហាវិទ្យាល័យវិទ្យាសាស្រ្ត"
-            android:textSize="20dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:layout_marginTop="10dp"
-            android:text="មហាវិទ្យាល័យសង្គសាស្រ្ត និង មនុស្សសាស្រ្ត"
-            android:textSize="20dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:text="មហាវិទ្យាល័យវិស្វកម្ម"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textColor="#000"
-            android:text="មហាវិទ្យាល័យសិក្សាអភិវឌ្ឍន៏សហគមន៏"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:text="មហាវិទ្យាល័យអប់រំ"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="match_parent"
-            android:textSize="20dp"
-            android:textColor="#000"
-            android:layout_marginTop="10dp"
-            android:text="មហាវិទ្យាល័យភាសាបរទេស"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+                <ListView
+                    android:id="@+id/lv_fac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </ListView>
+        </LinearLayout>
 </ScrollView>
