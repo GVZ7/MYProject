@@ -131,14 +131,14 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //        loaddata();
-//        User user = SingleTon.getInstance().getUser();
-//        if (user != null) {
+//        User user1 = SingleTon.getInstance().getUser();
+//        if (user1 != null) {
 //            View headerView = navigationView.getHeaderView(0);
 //            SimpleDraweeView imgProfile = headerView.findViewById(R.id.img_profile_navigation);
-//            imgProfile.setImageURI(user.getProfilePicture());
+//            imgProfile.setImageURI(user1.getProfilePicture());
 //            TextView txtEmail =headerView.findViewById(R.id.email);
 //            TextView txtUsername = headerView.findViewById(R.id.username);
-//            txtUsername.setText(user.getName());
+//            txtUsername.setText(user1.getName());
 //        }
     }
     private void AddFragments(){
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        //read data
-       if(user==null){
+
            db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                @Override
                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
 //                        imgUrl.setImageURI(profile.getImgUrl());
                        final SimpleDraweeView imgUrl1=findViewById(R.id.img_home);
 
+                       Log.d("FirebaseID", "profile image caught: " + e);
                        FirebaseStorage storage = FirebaseStorage.getInstance();
                        StorageReference storageReference = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
                        storageReference.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
        }
 
 
-   }
+
 
 //    private void loaddataFromFireBase(){
 //        String userID = user.getUid();
