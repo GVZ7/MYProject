@@ -7,6 +7,7 @@ public class Profile  {
     private String Username;
     private String Email;
     private String ImgUrl;
+    private User user;
 
     public Profile() {
     }
@@ -33,6 +34,14 @@ public class Profile  {
 
     public void setImgUrl(String imgUrl) {
         ImgUrl = imgUrl;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Profile(String username, String email, String imgUrl) {

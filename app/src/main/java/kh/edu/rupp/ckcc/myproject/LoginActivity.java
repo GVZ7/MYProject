@@ -56,6 +56,10 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();//for sign in firebase
     private CallbackManager callbackManager;
     private ImageButton btnFBct;
+
+    public boolean click_signin;
+    public boolean click_facebook_signin;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             @Override
             public void onClick(View v) {
                 signin();
-
+                click_signin=true;
             }
         });
         //button signup
@@ -93,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
            @Override
            public void onClick(View v) {
                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email"));
+               click_facebook_signin=true;
            }
        });
 
@@ -134,10 +139,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private void signin(){
 
         firebaseAuth.signInWithEmailAndPassword(txtemail.getText().toString(), txtpassword.getText().toString()).addOnCompleteListener(this);
-//        String userID=user.getUid();
-//        String userEmail=user.getEmail();
-//        String userName=user.getDisplayName();
-//        Toast.makeText(this,userID + userEmail+"  "+ userName,Toast.LENGTH_LONG).show();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

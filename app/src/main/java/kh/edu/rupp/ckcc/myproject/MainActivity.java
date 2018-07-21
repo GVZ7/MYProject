@@ -46,6 +46,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private LoginActivity loginActivity;
 
     private int[] tabIcons = {
             R.drawable.home1,
@@ -80,9 +82,12 @@ public class MainActivity extends AppCompatActivity {
          tabLayout = findViewById(R.id.abbtab);
          viewPager = findViewById(R.id.viewpager);
          AddFragments();
-         loaddata();
-//         loaddataFromFireBase();
-         loadProfileInfoFromFacebook();
+
+            loaddata();
+
+
+            //loadProfileInfoFromFacebook();
+
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
            @Override
            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -175,11 +180,10 @@ public class MainActivity extends AppCompatActivity {
                        Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
                        Log.d("Ckcc","LoadDataError: "+e);
                    }
-                   else{
-                       final Profile profile = documentSnapshot.toObject(Profile.class);
+                   else{                       final Profile profile = documentSnapshot.toObject(Profile.class);
                        View headerView= navigationView.getHeaderView(0);
-                       TextView txtName = headerView.findViewById(R.id.username_navigation);
-                       txtName.setText(profile.getUsername());
+//                       TextView txtName = headerView.findViewById(R.id.username_navigation);
+//                       txtName.setText(profile.getUsername());
                        TextView txtEmail= headerView.findViewById(R.id.email);
                        txtEmail.setText(profile.getEmail());
 
@@ -205,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                                }
                            }
                        });
-                   }
+                  }
                }
            });
 

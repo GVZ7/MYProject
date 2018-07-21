@@ -119,7 +119,6 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
                                 usermap.put("Username",u);
                                 usermap.put("Email",e);
                                 usermap.put("ImgUrl",imageUrl);
-
                                 db.collection("Profile").document(user.getUid()).set(usermap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
