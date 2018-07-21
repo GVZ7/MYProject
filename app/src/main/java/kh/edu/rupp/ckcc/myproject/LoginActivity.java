@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -39,6 +40,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -56,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();//for sign in firebase
     private CallbackManager callbackManager;
     private ImageButton btnFBct;
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,12 +109,13 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
     private void checkIfUserAlreadyLoggedIn() {
 //         Check login via username/password
-        SharedPreferences preferences = getSharedPreferences("ckcc", MODE_PRIVATE);
-        String userJsonString = preferences.getString("user", null);
+         sharedPreferences = getSharedPreferences("MyProject", MODE_PRIVATE);
+        String userJsonString = sharedPreferences.getString("user", null);
         if (userJsonString != null) {
             Gson gson = new Gson();
-            User user = gson.fromJson(userJsonString, User.class);
-            SingleTon.getInstance().setUser(user);
+            User user1 = gson.fromJson(userJsonString, User.class);
+            SingleTon.getInstance().setUser(user1);
+
 
             // Start MainActivity
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -124,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
 
-            // Finish current activity
+//             Finish current activity
             finish();
         }
     }
@@ -133,11 +140,26 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     //button sign up function
     private void signin(){
 
-        firebaseAuth.signInWithEmailAndPassword(txtemail.getText().toString(), txtpassword.getText().toString()).addOnCompleteListener(this);
-//        String userID=user.getUid();
-//        String userEmail=user.getEmail();
-//        String userName=user.getDisplayName();
-//        Toast.makeText(this,userID + userEmail+"  "+ userName,Toast.LENGTH_LONG).show();
+        firebaseAuth.signInWithEmailAndPassword(txtemail.getText().toString(), txtpassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    User user = new User();
+                    user.setUsername(auth.getCurrentUser().getDisplayName());
+                    Log.d("Hello",auth.getCurrentUser().getDisplayName());
+                    user.setProfilePicture(String.valueOf(auth.getCurrentUser().getPhotoUrl()));
+                    user.setEmail(auth.getCurrentUser().getEmail());
+                    SingleTon.getInstance().setUser(user);
+                    saveProfileInSharedPref(user);
+
+                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -147,10 +169,39 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
 
     @Override
     public void onSuccess(LoginResult loginResult) {
+        AccessToken accessToken=AccessToken.getCurrentAccessToken();
+        GraphRequest request = GraphRequest.newMeRequest(
+                accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            String id = object.getString("id");
+                            String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
+                            String name = object.getString("name");
+                            String email = object.getString("email");
+                            User user= new User();
+                            user.setId(id);
+                            user.setUsername(name);
+                            user.setEmail(email);
+                            user.setProfilePicture(profileUrl);
+                            saveProfileInSharedPref(user);
+                            SingleTon.getInstance().setUser(user);
+                            Intent intent = new Intent(getApplication(),MainActivity.class);
+                            startActivity(intent);
 
-        Toast.makeText(this, "Login with facebook succeeded.", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email");
+        request.setParameters(parameters);
+        request.executeAsync();
+
 
     }
 
@@ -183,25 +234,52 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
     //Sign in with Firebse
     @Override
-    public void onComplete(@NonNull Task<AuthResult> task) {
-        if (task.isSuccessful()) {
-            // Sign in success, update UI with the signed-in user's information
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            Intent intent = new Intent(this,MainActivity.class);
+    public void onComplete(@NonNull final Task<AuthResult> task) {
+      /*  if (task.isSuccessful()) {
+            loaddata();
+
+            Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
-            finish();
-//            TextView txtEmailNavigation=findViewById(R.id.username_navigation);
-//            String email=user.getEmail();
-//            txtEmailNavigation.setText(email);
         } else {
             // If sign in fails, display a message to the user.
             Toast.makeText(this, "Login with Firebase error.", Toast.LENGTH_LONG).show();
-            Log.d("COMPLETE",task.getException().getMessage());
-        }
+      //      Log.d("COMPLETE",task.getException().getMessage());
+        }*/
+    }
+
+//Save to sharepre for control data in app
+    private void saveProfileInSharedPref(User user) {
+         sharedPreferences = getSharedPreferences("MyProject", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String userJsonString = gson.toJson(user);
+        editor.putString("user", userJsonString);
+        editor.apply();
     }
 
 
+    private void loaddata() {
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //read data
 
+        db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                if(documentSnapshot==null){
+                    Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
+                    Log.d("Ckcc","LoadDataError: "+e);
+                }
+                else{
+                    User profile=documentSnapshot.toObject(User.class);
+                    profile.setId(documentSnapshot.getId());
 
+                    SingleTon.getInstance().setUser(profile);
+                    saveProfileInSharedPref(profile);
+
+                    Toast.makeText(getApplication(),profile.getUsername()+" "+ profile.getEmail(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 }

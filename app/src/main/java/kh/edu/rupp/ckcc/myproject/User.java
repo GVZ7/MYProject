@@ -4,38 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    private int id;
-    @SerializedName("first_name")
-    private String firstName;
-    @SerializedName("last_name")
-    private String lastName;
+    private String id;
     private String username;
-    @SerializedName("profile_picture")
     private String profilePicture;
+    private String email;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getUsername() {
         return username;
@@ -43,6 +24,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getProfilePicture() {
@@ -53,8 +42,5 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-    public String getName() {
-        return firstName + " " + lastName;
-    }
 
 }

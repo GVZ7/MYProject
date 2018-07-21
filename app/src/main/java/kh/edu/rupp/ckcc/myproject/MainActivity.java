@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.preference.PreferenceActivity;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -46,6 +47,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private SharedPreferences sharedPreferences;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+    private FirebaseAuth Auth=FirebaseAuth.getInstance();
     private int[] tabIcons = {
             R.drawable.home1,
             R.drawable.list1,
@@ -72,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
-      //  setContentView(R.layout.activity_homepage);
             setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.lyt_main);
          navigationView = findViewById(R.id.navigation_view);
@@ -80,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
          tabLayout = findViewById(R.id.abbtab);
          viewPager = findViewById(R.id.viewpager);
          AddFragments();
-         loaddata();
-//         loaddataFromFireBase();
-         loadProfileInfoFromFacebook();
+        loaddata();
        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
            @Override
            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -111,35 +111,19 @@ public class MainActivity extends AppCompatActivity {
            }
 
        });
-        // Load profile image from Firebase storage
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId + ".jpg");
-//        profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-//            @Override
-//            public void onComplete(@NonNull Task<byte[]> task) {
-//                if(task.isSuccessful()){
-//                    byte[] bytes = task.getResult();
-//                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);//get pic from firebase
-//                    //create img in view
-//                    View headerview =navigationView.getHeaderView(0);
-//                    ImageView img=headerview.findViewById(R.id.img_profile_navigation);
-//                    img.setImageBitmap(bitmap);//put pic in img
-//                } else {
-//                    Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-//                    Log.d("ckcc", "Load profile image fail: " + task.getException());
-//                }
-//            }
-//        });
-//        loaddata();
-//        User user1 = SingleTon.getInstance().getUser();
-//        if (user1 != null) {
-//            View headerView = navigationView.getHeaderView(0);
-//            SimpleDraweeView imgProfile = headerView.findViewById(R.id.img_profile_navigation);
-//            imgProfile.setImageURI(user1.getProfilePicture());
-//            TextView txtEmail =headerView.findViewById(R.id.email);
-//            TextView txtUsername = headerView.findViewById(R.id.username);
-//            txtUsername.setText(user1.getName());
-//        }
+
+        User user1 = SingleTon.getInstance().getUser();
+        if (user1 != null) {
+            View headerView = navigationView.getHeaderView(0);
+            SimpleDraweeView imgProfile = headerView.findViewById(R.id.img_profile_navigation);
+            imgProfile.setImageURI(user1.getProfilePicture());
+            TextView txtEmail =headerView.findViewById(R.id.email);
+            txtEmail.setText(user1.getEmail());
+            TextView txtUsername = headerView.findViewById(R.id.username_navigation);
+            txtUsername.setText(user1.getUsername());
+            SimpleDraweeView imgProfileHOme=findViewById(R.id.img_home);
+            imgProfileHOme.setImageURI(user1.getProfilePicture());
+        }
     }
     private void AddFragments(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -162,89 +146,20 @@ public class MainActivity extends AppCompatActivity {
    //    tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
-    // loading username Email in drawer
-   private void loaddata() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-       //read data
-
-           db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-               @Override
-               public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                   if(documentSnapshot==null){
-                       Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
-                       Log.d("Ckcc","LoadDataError: "+e);
-                   }
-                   else{
-                       final Profile profile = documentSnapshot.toObject(Profile.class);
-                       View headerView= navigationView.getHeaderView(0);
-                       TextView txtName = headerView.findViewById(R.id.username_navigation);
-                       txtName.setText(profile.getUsername());
-                       TextView txtEmail= headerView.findViewById(R.id.email);
-                       txtEmail.setText(profile.getEmail());
-
-                       //imgURL
-                       final SimpleDraweeView imgUrl =headerView.findViewById(R.id.img_profile_navigation);
-//                        imgUrl.setImageURI(profile.getImgUrl());
-                       final SimpleDraweeView imgUrl1=findViewById(R.id.img_home);
-
-                       Log.d("FirebaseID", "profile image caught: " + e);
-                       FirebaseStorage storage = FirebaseStorage.getInstance();
-                       StorageReference storageReference = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
-                       storageReference.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-                           @Override
-                           public void onComplete(@NonNull Task<byte[]> task) {
-                               if(task.isSuccessful()){
-                                   byte[] bytes = task.getResult();
-                                   Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                   imgUrl.setImageBitmap(bitmap);
-                                   imgUrl1.setImageBitmap(bitmap);
-                               } else {
-                                   Toast.makeText(MainActivity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-                                   Log.d("ckcc", "Load hillprofile image fail: " + task.getException());
-                               }
-                           }
-                       });
-                   }
-               }
-           });
-
-       }
-
-
-
-
-//    private void loaddataFromFireBase(){
-//        String userID = user.getUid();
-//        String userEmail=user.getEmail();
-//        String userName=user.getDisplayName();
-//        Uri userProfile=user.getPhotoUrl();
-//        View headerView=navigationView.getHeaderView(0);
-//        TextView txtEmail=headerView.findViewById(R.id.email);
-//        txtEmail.setText(userEmail);
-//        TextView txtUserName=headerView.findViewById(R.id.username_navigation);
-//        txtUserName.setText(userName);
-//        SimpleDraweeView imgUrl=headerView.findViewById(R.id.img_profile_navigation);
-//        imgUrl.setImageURI(userProfile);
-//    }
-
 
 
     private void onProfileClick() {
         drawerLayout.closeDrawers();
         Intent intent=new Intent(this,Profile_activity.class);
         startActivity(intent);
-
-
     }
 
     private void onGetInTouchClick() {
         drawerLayout.closeDrawers();
         Intent intent =new Intent(this,getintouch_activity.class);
         startActivity(intent);
-
         // Finish current activity
-    //    finish();
+        finish();
     }
 
     private void onFeedbackClick() {
@@ -252,9 +167,8 @@ public class MainActivity extends AppCompatActivity {
         // Start MainActivity
         Intent intent = new Intent(this, feeback_activity.class);
         startActivity(intent);
-
         // Finish current activity
-       // finish();
+        finish();
     }
 
     private void onBookmarkClick() {
@@ -262,9 +176,8 @@ public class MainActivity extends AppCompatActivity {
         // Start MainActivity
         Intent intent = new Intent(this, bookmark_activity.class);
         startActivity(intent);
-
         // Finish current activity
-     //   finish();
+        finish();
 
     }
 
@@ -273,9 +186,8 @@ public class MainActivity extends AppCompatActivity {
         // Start MainActivity
         Intent intent = new Intent(this, about_activity.class);
         startActivity(intent);
-
         // Finish current activity
-      //  finish();
+        finish();
     }
 
     private void onSettingClick() {
@@ -284,14 +196,12 @@ public class MainActivity extends AppCompatActivity {
         // Start MainActivity
         Intent intent = new Intent(this, settingActivity.class);
         startActivity(intent);
-
         // Finish current activity
-     //   finish();
+        finish();
     }
     //click pic
     public void click_to_profile(View view) {
-//        Intent intent=new Intent(this,Profile_activity.class);
-//        startActivity(intent);
+
         drawerLayout.openDrawer(Gravity.LEFT);
     }
     public void onLogoutClick() {
@@ -312,36 +222,39 @@ public class MainActivity extends AppCompatActivity {
     private void loadProfileInfoFromFacebook() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if (accessToken != null) {
-            GraphRequest request = GraphRequest.newMeRequest(
-                    accessToken,
-                    new GraphRequest.GraphJSONObjectCallback() {
-                        @Override
-                        public void onCompleted(JSONObject object, GraphResponse response) {
-                            try {
-                                String id = object.getString("id");
-                                String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
-                                String name = object.getString("name");
-                                String email = object.getString("email");
+                }
+    }
 
-                                SimpleDraweeView imgProfile = findViewById(R.id.img_profile_navigation);
-                                SimpleDraweeView imgProfile_home = findViewById(R.id.img_home);
-                                imgProfile.setImageURI(profileUrl);
-                                imgProfile_home.setImageURI(profileUrl);
-                                TextView txtName = findViewById(R.id.username_navigation);
-                                txtName.setText(name);
-                                TextView txt_email = findViewById(R.id.email);
-                                txt_email.setText(email);
+    // loading username Email in drawer
+    private void loaddata() {
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //read data
 
-            Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,name,email");
-            request.setParameters(parameters);
-            request.executeAsync();
-        }
+        db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if(documentSnapshot==null){
+                    Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
+                    Log.d("Ckcc","LoadDataError: "+e);
+                }
+                else{
+                    User profile=documentSnapshot.toObject(User.class);
+                    profile.setId(documentSnapshot.getId());
+                    SingleTon.getInstance().setUser(profile);
+                    saveProfileInSharedPref(profile);
+
+                Toast.makeText(getApplication(),profile.getUsername()+" "+ profile.getEmail(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+    private void saveProfileInSharedPref(User user) {
+        sharedPreferences = getSharedPreferences("ebus", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String userJsonString = gson.toJson(user);
+        editor.putString("user", userJsonString);
+        editor.apply();
     }
 }
