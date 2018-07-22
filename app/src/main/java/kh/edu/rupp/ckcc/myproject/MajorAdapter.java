@@ -73,7 +73,7 @@ public class MajorAdapter extends RecyclerView.Adapter<MajorAdapter.MajorHolder>
                     Context context = v.getContext();
                     Intent intent = new Intent(context, majordetail_activity.class);
 
-                    // Pass selected emajor to EventDetailActivity
+                    // Pass selected major to majorDetailActivity
                     int index = getAdapterPosition();
                     majors major  = majors1[index];
                     Gson gson = new Gson();
