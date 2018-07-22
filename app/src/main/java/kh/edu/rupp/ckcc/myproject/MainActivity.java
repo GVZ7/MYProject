@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAuth Auth=FirebaseAuth.getInstance();
     private int[] tabIcons = {
@@ -76,42 +76,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
-            setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.lyt_main);
-         navigationView = findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
 
-         tabLayout = findViewById(R.id.abbtab);
-         viewPager = findViewById(R.id.viewpager);
-         AddFragments();
+        tabLayout = findViewById(R.id.abbtab);
+        viewPager = findViewById(R.id.viewpager);
+        AddFragments();
         loaddata();
-       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-           @Override
-           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-               if(item.getItemId()==R.id.mnu_setting){
-                   onSettingClick();
-               }
-               if(item.getItemId()==R.id.mnu_about){
-                   onAboutClick();
-               }
-               if(item.getItemId()==R.id.mnu_BookMark){
-                   onBookmarkClick();
-               }
-               if(item.getItemId() == R.id.mnu_FeedBack){
-                   onFeedbackClick();
-               }
-               if(item.getItemId()==R.id.mnu_GetInTouch){
-                   onGetInTouchClick();
-               }
-               if(item.getItemId()==R.id.mnu_logout){
-                   onLogoutClick();
-               }
-               if(item.getItemId()==R.id.mnu_profile){
-                   onProfileClick();
-               }
-               return false;
-           }
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId()==R.id.mnu_setting){
+                    onSettingClick();
+                }
+                if(item.getItemId()==R.id.mnu_about){
+                    onAboutClick();
+                }
+                if(item.getItemId()==R.id.mnu_BookMark){
+                    onBookmarkClick();
+                }
+                if(item.getItemId() == R.id.mnu_FeedBack){
+                    onFeedbackClick();
+                }
+                if(item.getItemId()==R.id.mnu_GetInTouch){
+                    onGetInTouchClick();
+                }
+                if(item.getItemId()==R.id.mnu_logout){
+                    onLogoutClick();
+                }
+                if(item.getItemId()==R.id.mnu_profile){
+                    onProfileClick();
+                }
+                return false;
+            }
 
-       });
+        });
 
         User user1 = SingleTon.getInstance().getUser();
         if (user1 != null) {
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.AddFragments(new HomepageFragment(),"");
         adapter.AddFragments(new FaculitiesFragment(),"");
         adapter.AddFragments(new SearchFragment(),"");
-    //    adapter.AddFragments(new SettingFragment(),"Setting");
+        //    adapter.AddFragments(new SettingFragment(),"Setting");
 
         //adapter setup
         viewPager.setAdapter(adapter);
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-   //    tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        //    tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
 
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onFeedbackClick() {
-    drawerLayout.closeDrawers();
+        drawerLayout.closeDrawers();
         // Start MainActivity
         Intent intent = new Intent(this, feeback_activity.class);
         startActivity(intent);
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onAboutClick() {
-    drawerLayout.closeDrawers();
+        drawerLayout.closeDrawers();
         // Start MainActivity
         Intent intent = new Intent(this, about_activity.class);
         startActivity(intent);
@@ -220,14 +220,9 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void loadProfileInfoFromFacebook() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken != null) {
-                }
-    }
 
     // loading username Email in drawer
-    private void loaddata() {
+    public void loaddata() {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //read data
@@ -244,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
                         person.setEmail(profile.getEmail());
                         person.setUsername(profile.getUsername());
                         person.setProfilePicture(profile.getImgUrl());
-                        Toast.makeText(getApplication(), person.getEmail() + " " + person.getProfilePicture() + "  " + person.getUsername(), Toast.LENGTH_LONG).show();
                         saveProfileInSharedPref(person);
                         SingleTon.getInstance().setUser(person);
 

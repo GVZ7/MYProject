@@ -219,7 +219,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     @Override
     public void onComplete(@NonNull final Task<AuthResult> task) {
         if (task.isSuccessful()) {
-            loaddata();
+//            loaddata();
 
 
             Intent intent=new Intent(this,MainActivity.class);

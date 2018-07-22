@@ -1,6 +1,7 @@
 package kh.edu.rupp.ckcc.myproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,35 +39,37 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class Profile_activity extends AppCompatActivity
-{
-    private SimpleDraweeView imgProfile;
+{   private SharedPreferences sharedPreferences;
+    private SimpleDraweeView imgProfileProfileATY;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         //click image
 
-
+            User user1 = SingleTon.getInstance().getUser();
+            if (user1 != null) {
+                imgProfileProfileATY = findViewById(R.id.draw_profile);
+                TextView txtNammeProfile = findViewById(R.id.username_prfileActivity);
+                TextView txtEmailProfile = findViewById(R.id.email_profileActivity);
+                imgProfileProfileATY.setImageURI(user1.getProfilePicture());
+                txtEmailProfile.setText(user1.getEmail());
+                txtNammeProfile.setText(user1.getUsername());
 //        loaddata();
-        User user1 = SingleTon.getInstance().getUser();
-        if (user1 != null) {
-                 imgProfile=findViewById(R.id.draw_profile);
-                TextView txtName=findViewById(R.id.username_prfileActivity);
-                TextView txtEmail=findViewById(R.id.email_profileActivity);
-
-                imgProfile.setImageURI(user1.getProfilePicture());
-                txtEmail.setText(user1.getEmail());
-                txtName.setText(user1.getUsername());
-        }
+            }
 
     }
     //choose picture
-        public void profile_click(View view){
+    public void profile_click(View view){
+
+
         if(AccessToken.getCurrentAccessToken()==null){
             // Open gallery app to select an image
+
+            //Error not refresh
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -74,7 +78,7 @@ public class Profile_activity extends AppCompatActivity
             Log.d("upload ","photo ");
         }
 
-        }
+    }
 
     //upload n store img on firebase
     @Override
@@ -87,8 +91,7 @@ public class Profile_activity extends AppCompatActivity
             try {
                 // Set image to image view
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                imgProfile.setImageBitmap(bitmap);
-
+                imgProfileProfileATY.setImageBitmap(bitmap);
                 // Save image to Firebase Storage
                 uploadImageToFirebaseStorage(bitmap);
 
@@ -110,6 +113,10 @@ public class Profile_activity extends AppCompatActivity
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(Profile_activity.this, "Upload profile image success.", Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(getApplication(),MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
                 } else {
                     Toast.makeText(Profile_activity.this, "Upload profile image fail.", Toast.LENGTH_LONG).show();
                     Log.d("ckcc", "Upload profile image fail: " + task.getException());
@@ -117,5 +124,12 @@ public class Profile_activity extends AppCompatActivity
             }
         });
     }
-
+    private void saveProfileInSharedPref(User user) {
+        sharedPreferences = getSharedPreferences("MyProject", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String userJsonString = gson.toJson(user);
+        editor.putString("user", userJsonString);
+        editor.apply();
+    }
 }
