@@ -12,6 +12,9 @@ public class SingleTon {
     public String getImg() {
         return img;
     }
+    private SingleTon(){
+
+    }
 
     public void setImg(String img) {
         this.img = img;

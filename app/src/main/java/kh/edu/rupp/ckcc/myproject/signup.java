@@ -156,7 +156,7 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
                 imgprofile.setImageBitmap(bitmap);
 
                 // Save image to Firebase Storage
-                //uploadImageToFirebaseStorage(bitmap);
+                uploadImageToFirebaseStorage(bitmap);
 
             } catch (IOException e) {
                 Toast.makeText(this, "Error while selecting profile image.", Toast.LENGTH_LONG).show();

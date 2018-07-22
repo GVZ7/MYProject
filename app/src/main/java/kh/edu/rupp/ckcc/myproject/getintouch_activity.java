@@ -24,7 +24,9 @@ public class getintouch_activity extends AppCompatActivity
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               onBackPressed();
+                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

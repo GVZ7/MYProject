@@ -220,10 +220,15 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     public void onComplete(@NonNull final Task<AuthResult> task) {
         if (task.isSuccessful()) {
 //            loaddata();
+            String id = task.getResult().getUser().getUid();
+            User user = new User();
+            user.setId(id);
 
-
+            SingleTon.getInstance().setUser(user);
+            Log.d("MyApp","Loginn with database"+task.getResult().getUser().getUid());
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
+            finish();
         } else {
             // If sign in fails, display a message to the user.
             Toast.makeText(this, "Login with Firebase error.", Toast.LENGTH_LONG).show();
@@ -255,15 +260,13 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                     Log.d("Ckcc","LoadDataError: "+e);
                 }
                 else{
-                    final kh.edu.rupp.ckcc.myproject.Profile profile=documentSnapshot.toObject(kh.edu.rupp.ckcc.myproject.Profile.class);
-                    User person=new User();
-                    person.setEmail(profile.getEmail());
-                    person.setUsername(profile.getUsername());
-                    person.setProfilePicture(profile.getImgUrl());
-                    Toast.makeText(getApplication(),person.getEmail()+ " "+person.getProfilePicture()+"  "+person.getUsername(),Toast.LENGTH_LONG).show();
-                    saveProfileInSharedPref(person);
-                    SingleTon.getInstance().setUser(person);
 
+                    User person=documentSnapshot.toObject(User.class);
+                    person.setId(user.getUid());
+                    Toast.makeText(getApplication(),person.getEmail()+ " "+person.getProfilePicture()+"  "+person.getUsername(),Toast.LENGTH_LONG).show();
+
+                    SingleTon.getInstance().setUser(person);
+                    saveProfileInSharedPref(person);
                 }
             }
         });

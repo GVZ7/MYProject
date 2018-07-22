@@ -28,11 +28,9 @@ public class RateNowActivity extends AppCompatActivity implements View.OnClickLi
             Intent intent = new Intent(this,feeback_activity.class);
             startActivity(intent);
             //Finish current activity
-            finish();
         }else if(v == rate_now){
             Intent intent = new Intent(this,RateNow.class);
             startActivity(intent);
-            finish();
         }else {
             Toast.makeText(this, "Please Other Click Button", Toast.LENGTH_SHORT).show();
         }

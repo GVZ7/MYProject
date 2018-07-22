@@ -139,6 +139,15 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setIconTab();
     }
+
+    public void onRestart() {
+        super.onRestart();
+        Intent intent=getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+
     //setup icon for tab
     private void setIconTab(){
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -237,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         final kh.edu.rupp.ckcc.myproject.Profile profile = documentSnapshot.toObject(kh.edu.rupp.ckcc.myproject.Profile.class);
                         User person = new User();
                         person.setEmail(profile.getEmail());
+                        person.setId(documentSnapshot.getId());
                         person.setUsername(profile.getUsername());
                         person.setProfilePicture(profile.getImgUrl());
                         saveProfileInSharedPref(person);

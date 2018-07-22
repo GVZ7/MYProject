@@ -50,30 +50,27 @@ public class Profile_activity extends AppCompatActivity
         setContentView(R.layout.activity_profile);
         //click image
 
-            User user1 = SingleTon.getInstance().getUser();
-            if (user1 != null) {
-                imgProfileProfileATY = findViewById(R.id.draw_profile);
-                TextView txtNammeProfile = findViewById(R.id.username_prfileActivity);
-                TextView txtEmailProfile = findViewById(R.id.email_profileActivity);
-                imgProfileProfileATY.setImageURI(user1.getProfilePicture());
-                txtEmailProfile.setText(user1.getEmail());
-                txtNammeProfile.setText(user1.getUsername());
+        User user1 = SingleTon.getInstance().getUser();
+        if (user1 != null) {
+            imgProfileProfileATY = findViewById(R.id.draw_profile);
+            TextView txtNammeProfile = findViewById(R.id.username_prfileActivity);
+            TextView txtEmailProfile = findViewById(R.id.email_profileActivity);
+            imgProfileProfileATY.setImageURI(user1.getProfilePicture());
+            txtEmailProfile.setText(user1.getEmail());
+            txtNammeProfile.setText(user1.getUsername());
 //        loaddata();
-            }
+        }
 
     }
     //choose picture
     public void profile_click(View view){
-
-
         if(AccessToken.getCurrentAccessToken()==null){
             // Open gallery app to select an image
-
-            //Error not refresh
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, 1);
+//            Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_GET_CONTENT);
+//            startActivityForResult(intent, 1);
+            Toast.makeText(getApplication(),"underProgress",Toast.LENGTH_LONG).show();
         }else {
             Log.d("upload ","photo ");
         }
