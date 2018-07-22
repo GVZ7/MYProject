@@ -38,7 +38,7 @@ import java.io.IOException;
 
 public class Profile_activity extends AppCompatActivity
 {
-    private ImageView profileimg;
+    private SimpleDraweeView imgProfile;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
 
@@ -47,34 +47,33 @@ public class Profile_activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         //click image
-        profileimg = findViewById(R.id.draw_profile);
 
-        // Load profile image from Firebase storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference profileRef = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
-        profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-            @Override
-            public void onComplete(@NonNull Task<byte[]> task) {
-                if(task.isSuccessful()){
-                    byte[] bytes = task.getResult();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    profileimg.setImageBitmap(bitmap);
-                } else {
-                    Toast.makeText(Profile_activity.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-                    Log.d("ckcc", "Load Profile-activity image fail : " + task.getException());
-                }
-            }
-        });
 
-        loaddata();
+//        loaddata();
+        User user1 = SingleTon.getInstance().getUser();
+        if (user1 != null) {
+                 imgProfile=findViewById(R.id.draw_profile);
+                TextView txtName=findViewById(R.id.username_prfileActivity);
+                TextView txtEmail=findViewById(R.id.email_profileActivity);
+
+                imgProfile.setImageURI(user1.getProfilePicture());
+                txtEmail.setText(user1.getEmail());
+                txtName.setText(user1.getUsername());
+        }
+
     }
     //choose picture
         public void profile_click(View view){
+        if(AccessToken.getCurrentAccessToken()==null){
             // Open gallery app to select an image
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(intent, 1);
+        }else {
+            Log.d("upload ","photo ");
+        }
+
         }
 
     //upload n store img on firebase
@@ -88,7 +87,7 @@ public class Profile_activity extends AppCompatActivity
             try {
                 // Set image to image view
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                profileimg.setImageBitmap(bitmap);
+                imgProfile.setImageBitmap(bitmap);
 
                 // Save image to Firebase Storage
                 uploadImageToFirebaseStorage(bitmap);
@@ -119,49 +118,4 @@ public class Profile_activity extends AppCompatActivity
         });
     }
 
-    //read data
-    private void loaddata() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        //read data
-        db.collection("Profile").document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot==null){
-                    Toast.makeText(getApplication(),"Error",Toast.LENGTH_LONG).show();
-                    Log.d("Ckcc","LoadDataError: "+e);
-                }
-                else{
-                    final Profile profile = documentSnapshot.toObject(Profile.class);
-                    //View headerView= navigationView.getHeaderView(0);
-                    TextView txtName = findViewById(R.id.username);
-                    txtName.setText("Username:"+profile.getUsername());
-                    TextView txtEmail= findViewById(R.id.email_profile);
-                    txtEmail.setText("Email:"+profile.getEmail());
-
-                    //imgURL
-                    final SimpleDraweeView imgUrl =findViewById(R.id.draw_profile);
-
-
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference storageReference = storage.getReference().child("images").child("Profile").child(user.getUid() + ".jpg");
-                    storageReference.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>() {
-                        @Override
-                        public void onComplete(@NonNull Task<byte[]> task) {
-                            if(task.isSuccessful()){
-                                byte[] bytes = task.getResult();
-                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                imgUrl.setImageBitmap(bitmap);
-                            } else {
-                               // Toast.makeText(Profile.this, "Load profile image fail.", Toast.LENGTH_LONG).show();
-                                Log.d("ckcc", "Load hillprofile image fail: " + task.getException());
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
-
-    }
 }
