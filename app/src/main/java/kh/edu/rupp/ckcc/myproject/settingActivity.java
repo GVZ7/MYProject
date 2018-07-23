@@ -22,8 +22,11 @@ public class settingActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
+
+       // onBackPressed();
     }
 
     public void onCheck(View view) {
@@ -44,5 +47,9 @@ public class settingActivity extends AppCompatActivity
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(settingActivity.this,MainActivity.class);
+        startActivity(intent);
+    }
 }

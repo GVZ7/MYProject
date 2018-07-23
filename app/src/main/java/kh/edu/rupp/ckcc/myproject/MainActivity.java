@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent =new Intent(this,getintouch_activity.class);
         startActivity(intent);
         // Finish current activity
-        finish();
+
     }
 
     private void onFeedbackClick() {
@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, feeback_activity.class);
         startActivity(intent);
         // Finish current activity
-        finish();
     }
 
     private void onBookmarkClick() {
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, bookmark_activity.class);
         startActivity(intent);
         // Finish current activity
-        finish();
+
 
     }
 
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, about_activity.class);
         startActivity(intent);
         // Finish current activity
-        finish();
+
     }
 
     private void onSettingClick() {
@@ -207,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, settingActivity.class);
         startActivity(intent);
         // Finish current activity
-        finish();
+
     }
     //click pic
     public void click_to_profile(View view) {

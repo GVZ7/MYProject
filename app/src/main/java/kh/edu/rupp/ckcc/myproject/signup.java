@@ -172,7 +172,7 @@ public class signup extends AppCompatActivity implements OnCompleteListener<Auth
         EditText userId=findViewById(R.id.signup_user);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference profileRef = storage.getReference().child("images").child("Profile").child(userId.getText()+".jpg");
+            StorageReference profileRef = storage.getReference().child("images").child("Profile").child(usename+".jpg");
         profileRef.putFile(uriprofile).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
