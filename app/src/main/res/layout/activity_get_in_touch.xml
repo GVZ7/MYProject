@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:hint="Email Us : Imav@.org.com.kh"
+            android:hint="Email Us : Vann@gmail.com"
             android:textSize="20dp"/>
 
 

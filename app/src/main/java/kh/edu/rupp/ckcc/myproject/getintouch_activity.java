@@ -24,9 +24,8 @@ public class getintouch_activity extends AppCompatActivity
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent=new Intent(getintouch_activity.this,MainActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -35,7 +34,7 @@ public class getintouch_activity extends AppCompatActivity
         f.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.rupp.edu.kh/"));
+                Intent intent =new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/vinsovann1111"));
                 startActivity(intent);
             }
         });
@@ -50,4 +49,6 @@ public class getintouch_activity extends AppCompatActivity
             }
         });
     }
+
+
 }

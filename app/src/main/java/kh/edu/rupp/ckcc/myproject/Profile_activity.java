@@ -70,7 +70,7 @@ public class Profile_activity extends AppCompatActivity
 //            intent.setType("image/*");
 //            intent.setAction(Intent.ACTION_GET_CONTENT);
 //            startActivityForResult(intent, 1);
-            Toast.makeText(getApplication(),"underProgress",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(),"Under Development Process",Toast.LENGTH_LONG).show();
         }else {
             Log.d("upload ","photo ");
         }
